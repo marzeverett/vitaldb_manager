@@ -57,30 +57,43 @@ Prediction:
 | SNUADC/ECG_II | ECG lead II wave | W/500 | mV | 
 | SNUADC/ECG_V5 | ECG lead V5 wave | W/500 | mV | 
 | SNUADC/FEM | Femoral arterial pressure wave | W/500 | mV | 
-| SNUADC/PLETH | Plethysmography wave | W/500 | unitless | 
-
-### ECG Infomartion from Solar8000 -- ? 
-
-| Datastream label | Datastream Description | Type/Hz | Unit | 
-| --- | --- | --- | --- | 
-| Solar8000/ART_DBP | Diastolic arterial pressure | N | mmHg | 
-| Solar8000/ART_MBP | Mean arterial pressure | N | mmHg | 
-| Solar8000/ART_SBP | Systolic arterial pressure | N | mmHg | 
-| Solar8000/BT | Body temparature | N | mmHg | 
 
 ### Ventilator Information from Solar8000
 
 | Datastream label | Datastream Description | Type/Hz | Unit | 
 | --- | --- | --- | --- | 
-| Solar8000/VENT_COMPL | Airway compliance (from ventilator) | N | mL/mbar | 
 | Solar8000/VENT_INSP_TM | Inspiratory time (from ventilator) | N | sec | 
 | Solar8000/VENT_MAWP | Mean airway pressure (from ventilator) | N | mbar | 
-| Solar8000/VENT_MEAP_PEEP | Positive end-expiratory pressure (from ventilator) | N | mbar | 
 | Solar8000/VENT_MV | Minute ventilation (from ventilator) | N | L/min | 
 | Solar8000/VENT_PIP | Peak inspiratory pressure (from ventilator) | N | mbar | 
 | Solar8000/VENT_PPLAT | Plateau pressure (from ventilator) | N | mbar | 
 | Solar8000/VENT_RR | Respiratory rate (from ventilator) | N | /min | 
 | Solar8000/VENT_TV | Measured tidal volume (from ventilator) | N | mL | 
+| Solar8000/BT | Body temperature | N | degrees C | 
+
+### Anesthesia Information from Orchestra 
+
+| Datastream label | Datastream Description | Type/Hz | Unit | 
+| --- | --- | --- | --- | 
+| Orchestra/RFTN20_CE | Effect-site concentration (remifentanil 20 mcg/mL) | N | ng/mL |
+| Orchestra/RFTN20_CP | Plasma concentration (remifentanil 20 mcg/mL) | N | ng/mL |
+| Orchestra/RFTN20_CT | Target concentration (remifentanil 20 mcg/mL) | N | ng/mL |
+| Orchestra/RFTN20_RATE | Infusion rate (remifentanil 20 mcg/mL) | N | mL/hr |
+| Orchestra/RFTN20_VOL | Infused volume (remifentanil 20 mcg/mL) | N | mL |
+
+## ECG Information from BIS
+
+| Datastream label | Datastream Description | Type/Hz | Unit | 
+| --- | --- | --- | --- | 
+| BIS/BIS | Bispectral index value | N | unitless |
+| BIS/EEG1_WAV | EEG wave from channel 1 | W/128 | uV |
+| BIS/EEG2_WAV | EEG wave from channel 2 | W/128 | uV |
+| BIS/EMG | Electromyography power | N | dB |
+| BIS/SEF | Spectral edge frequency | N | Hz |
+| BIS/SQI | Spectral quality index | N | % |
+| BIS/SR | Supression Ratio | N | % |
+| BIS/TOTPOW | Total power | N | dB |
+
 
 ## Notes 
 There may be an advantage in allowing small datastreams that aren't time-based to be incorporated without being time-autoencoded. (Ensemble Learn)

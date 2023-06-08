@@ -13,7 +13,7 @@ We are going to try out 5 input data streams from the dataset and will restrict 
 ### Demographic Information 
 
 | Datastream label | Datastream Description | Type/Hz | Unit | 
-| --- | --- | --- | | --- | 
+| --- | --- | --- | --- | 
 | age | Age | N | years |
 | sex |  Sex | N | M/F |
 | height | Height | N | cm |

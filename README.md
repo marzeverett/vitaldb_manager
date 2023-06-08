@@ -7,7 +7,7 @@ For these experiments, we are looking at how the structure of a neural network o
 
 
 # Data Streams
-We are going to try out 5 input data streams from the dataset and will restrict the number of samples to those that contain these datastreams.
+We are going to try out 6 input data streams from the dataset and will restrict the number of samples to those that contain these datastreams. Should have 44 samples total. 
 
 ## Input Data Streams (Tables from Documentation)
 

@@ -33,22 +33,40 @@ snu = ["SNUADC/ECG_II", "SNUADC/ECG_V5", "SNUADC/ART", "SNUADC/FEM", "SNUADC/CVP
 orch = ["Orchestra/RFTN20_CE", "Orchestra/RFTN20_CP", "Orchestra/RFTN20_CT", "Orchestra/RFTN20_RATE", "Orchestra/RFTN20_VOL"]
 bis = ["BIS/BIS", "BIS/EEG1_WAV", "BIS/EEG2_WAV", "BIS/EMG", "BIS/SEF", "BIS/SQI", "BIS/SR", "BIS/TOTPOW"]
 solar = ["Solar8000/VENT_MAWP", "Solar8000/VENT_RR", "Solar8000/VENT_TV", "Solar8000/VENT_PPLAT", "Solar8000/VENT_PIP", "Solar8000/VENT_MV", "Solar8000/VENT_INSP_TM", "Solar8000/BT"]
+#43 of these 
+valid_cases = [4481, 3719, 1292, 397, 2327, 6297, 5018, 6009, 1820, 2332, 4255, 1191, 1959, 553, 3631, 2738, 818, 1590, 55, 5175, 4283, 5693, 1730, 5442, 3524, 4684, 5837, 1231, 6227, 985, 3930, 2267, 4573, 5983, 2272, 6246, 5607, 1900, 3694, 2168, 1785, 1018, 251]
 
-
-caseids = vitaldb.find_cases(snu+solar+orch+bis)
+#caseids = vitaldb.find_cases(snu+solar+orch+bis)
 #caseids = vitaldb.find_cases(demographics)
 
-print(len(caseids))
-print(caseids)
+#print(len(caseids))
+#print(caseids)
 #https://github.com/vitaldb/examples/blob/master/eeg_mac.ipynb 
-df_cases = pd.read_csv("https://api.vitaldb.net/cases")  # patient information
-
+#df_cases = pd.read_csv("https://api.vitaldb.net/cases")  # patient information
 #df_cases.to_csv("vital_csvs/clinical_info.csv")
 
 #df_cases["death_inhosp"] = df_cases["death_inhosp"].astype("bool")
 #Count of in-hospital mortality 
 
-df_cases = df_cases[df_cases["caseid"].isin(caseids)]
+df_labs = pd.read_csv("https://api.vitaldb.net/labs")
+
+df_labs = df_labs[df_labs["caseid"].isin(valid_cases)]
+df_labs.to_csv("vital_csvs/lab_info.csv")
+
+print(df_labs.head())
+#df_labs = pd.read_csv('https://api.vitaldb.net/labs')
+#Histogram - useful info 
+#Histogram of diagnosis 
+plt.hist(df_labs["bun"])
+plt.xticks(rotation=10)
+plt.show()
+
+
+
+
+
+
+#df_cases = df_cases[df_cases["caseid"].isin(caseids)]
 ##
 #print(df_cases.head())
 #print(len(df_cases.index))
@@ -95,8 +113,9 @@ def add_static_info(case_id, df):
         df[col] = df_case[col].item()
     return df 
 
-# folder = "vital_csvs/"
-# #caseids = [caseids[0]]
+folder = "vital_csvs/"
+#caseids = [caseids[0]]
+# caseids = [5304]
 # for caseid in caseids:
 #     print("Make VitalFile")
 #     vf = vitaldb.VitalFile(caseid, total_tracks)
@@ -165,3 +184,7 @@ def add_static_info(case_id, df):
 #Forward fill
 #
 #Will go into a folder case/ingo
+
+#For lab readings 
+#From here: https://github.com/vitaldb/examples/blob/master/ci_aki.ipynb 
+#df_labs = pd.read_csv('https://api.vitaldb.net/labs')  # Load lab result

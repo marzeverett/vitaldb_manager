@@ -1,6 +1,6 @@
 # Experimental Plan 
 
-15 Letters (So Far) - Might take out (1-3 of them?) if decide not to do ensemble on case 
+12 Letters (So Far) - Might take out (1-3 of them?) if decide not to do ensemble on case 
 
 ## Base (Network 1)
 A: 
@@ -23,7 +23,7 @@ E. One datastream from all cases used to recreated one datastream from all cases
 
 F. One datastream from all cases used to predict one datastream from all cases, using LSTM network with data preprocessed by E 
 
-G. ALl datastreams from all cases predict all datastreams from all locations fusing data preprocessed by E 
+G. All datastreams from all cases predict all datastreams from all locations fusing data preprocessed by E 
 
 H. (No)
 
@@ -56,9 +56,9 @@ W. (No)
 
 ## By Case - Revisit 
 
-X. All datastreams from all cases are recreated from all datastreams from all cases, preprocessing and fusing input from L (on case) -- Ensemble?  (No)
+X. (NO) All datastreams from all cases are recreated from all datastreams from all cases, preprocessing and fusing input from L (on case) -- Ensemble?  (No)
 
-Y. All datastreams from all cases are predicted from all datastreams from all cases, after being preprocessing by AE in X.  (No)
+Y. (NO) All datastreams from all cases are predicted from all datastreams from all cases, after being preprocessing by AE in X.  (No)
 
 Z. (No)
 
@@ -78,5 +78,15 @@ AD. All datastreams from all cases are predicted from all datastreams from all c
 
 Prediction Letters - A, B, C, F, G, M, T, AD
 
+AEs: E, L, S, AC 
+
+## Plan
+1. Run all with shallow models
+2. Run all with deeper models
+3. Run with Retraining
+4. Run with Prediction 
 
 
+Make sure to discuss limitations 
+
+Notes: We also might want to try all per one case or one per one case, but not introduce the additional post-processing. Just as a sanity check since a person is likely a more complex biological system than what we have for weather. 

@@ -1,6 +1,6 @@
 # Experimental Plan 
 
-12 Letters
+12 Letters (So Far) - Might take out (1-3 of them?) if decide not to do ensemble on case 
 
 ## Base (Network 1)
 A: 
@@ -14,6 +14,8 @@ from one case
 C: 
 One datastream from all cases used to predict one datastream from all cases 
 
+D: (No) Think we are not going to do this since it isn't feasible for the amount of data and cases we have. 
+
 
 ## AE Separate Latent Space (Network 2)
 ### By Datastream 
@@ -23,6 +25,11 @@ F. One datastream from all cases used to predict one datastream from all cases, 
 
 G. All datastreams from all cases predict all datastreams from all locations fusing data preprocessed by E 
 
+H. (No)
+
+I. (No)
+
+J. (No)
 
 ### By Case  - Check 
 
@@ -30,6 +37,9 @@ L: All datastreams from one case used to recreate all datastreams from one case,
 
 M. All datastreams from one case used to predict all datastreams from one case, using an LSTM network with data preprocessed by autoencoders from L.
 
+N.(NO) All datastreams from all cases used to predict all datastreams from all cases using an LSTM network with data preprocessed by autoencoders from L and fused for each case (Ensemble?)
+
+Q. (No) 
 
 ## AE Separate Latent Space, then Feature Merged Latent Space (Network 3)
 
@@ -38,6 +48,23 @@ S. All datastreams from all cases recreated from all datastreams from all locati
 
 T. All datastreams from all cases predicted from all datastreams from all cases, after being preprocessed by AE in S
 
+U. (No)
+
+V. (No)
+
+W. (No)
+
+## By Case - Revisit 
+
+X. (NO) All datastreams from all cases are recreated from all datastreams from all cases, preprocessing and fusing input from L (on case) -- Ensemble?  (No)
+
+Y. (NO) All datastreams from all cases are predicted from all datastreams from all cases, after being preprocessing by AE in X.  (No)
+
+Z. (No)
+
+AA. (No)
+
+AB. (No)
 
 ## AE datastreams/locations share Latent Space
 

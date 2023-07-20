@@ -430,7 +430,6 @@ def print_dataset_info(df):
 #Take in a dataset object, create it, and save it. 
 #Takes in a dataset object, returns 
 def create_dataset_from_dataset_object(dataset_object):
-    #Handle categorical
     #Normalize the rest
     #For each dataset, split into x/y
     #For each dataset, preprocess with an ae if necessary
@@ -444,6 +443,16 @@ def create_dataset_from_dataset_object(dataset_object):
 
     #Can we really re-use datasets here? Not really
     #So might make more sense to describe them together?? 
+
+
+    #Next 10 second prediction of vitals
+    #30 second input
+
+    #Regressing: vitals
+    #Prediction: dis_risk, emop, gluc_risk (where possible)
+    #Will transfer learn based on datastream only (as before)
+
+    #No Conv
 
 
 

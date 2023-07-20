@@ -14,10 +14,6 @@ A Dataset a dictionary with the following keys:
 
 "output_slices_offset": Days of offset from the edge of an input sequence to an output sequence (in most cases, just 1)
 
-"categorical" - list of categorical variables
-
-"cat_codes" - list of cat codes 
-
 "task_type": type os ML task, either regression or prediction 
  
 "dataset_name": The name to give the dataset 

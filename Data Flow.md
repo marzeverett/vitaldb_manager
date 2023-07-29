@@ -10,7 +10,7 @@ Letter: The Letter of an experiment describes a particular model/data combinatio
 
 #Model Type: Prediction, Regression, or Autoencoder Task.
 
-Model Index: Index for model used under the different tasks (Identified by dictionary). Some tasks may use more than one model type (i.e. deep vs shallow lstm model, if applicable).
+Model Group: group index for model used under the different tasks (Identified by dictionary). Some tasks may use more than one model type (i.e. deep vs shallow lstm model, if applicable).
 
 Datastream Index: an index corresponding to a whether a letter is using all datastreams together or using them separately. (0 together, 1 separate)
 
@@ -35,9 +35,9 @@ When Phase is finished, broad analysis can be completed.
 ### High Level File Structure
 
 Note: Need to fix the ability to reflect the particular model nodes as well as the model index (esp. in experiment)
-Full Name of Dataset: {phase}_{letter}_{model_type}_{model_index}_{datastream_index}_{location_index}_{input_index}_{output_index}
+Full Name of Dataset: {phase}_{letter}_{model_group}_{datastream_scheme}_{location_scheme}_{datastream_index}_{location_index}_{input_samples}_{output_samples}
 
-Full name of given experiment path: experiments/{phase}_{letter}/{phase}_{letter}_{model_type}_{model_index}_{datastream_index}_{location_index}_{input_index}_{output_index}
+Full name of given experiment path: experiments/{phase}_{letter}_{model_index}/{phase}_{letter}_{model_group}_{datastream_index}_{location_index}_{input_samples}_{output_samples}
 
 Metric path for given experiment: metrics/{phase}_{letter}
 
@@ -65,20 +65,46 @@ data_analysis
 
 ## In the Code 
 Phase File - contains high level information (not all needed for all experiments) about the experimental slate (phase_dict)
+ 
+|
 
 Letters File - contains info about how to generate descriptors from letters (add letters dict)
 
+|
+
 Dataset Descriptors File - contains info about how to generate dataset descriptors based on phase and letter information 
+
+|
 
 Experiment Descriptors File - contains info about how to generate experiment descriptos based on phase, letters, and dataset descriptors
 
+|
+
 Dataset Generator - generates datasets based on dataset descriptors
+
+|
 
 Model Generator - Generates and runs models based on an experiment descriptor and dataset desciptors
 
+|
+
 Graph and Analyze - analyzes and/or graphs info based on experiment results, adds to main metrics files. 
 
+|
+
 Test_Experiments - returns test experiments based on existing parameters. 
+
+
+For ONE Letter, what can vary? 
+Datasets 
+Nope, we do -- multiple models can use the same dataset
+datastream index can vary (not necessarily, though)
+location index can vary (not in this dataset, though)
+input samples
+output samples can vary 
+
+On experiment side - 
+what model index it is can vary - do we even want to do this for this dataset??? -- Yeah probably. 
 
 
 

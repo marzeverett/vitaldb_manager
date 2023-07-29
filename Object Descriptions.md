@@ -1,5 +1,30 @@
 # Object Descriptions
 
+## Phase Dict 
+
+    {
+        "phase_name": "1",
+        "phase_path_start": "generated_files/",
+        "delete_stream": False,
+        "task_type": "regression",
+        "model_group": "0",
+        "input_samples": [30],
+        "output_samples": [10],
+        "test": False,
+        "retrain": False,
+        "predict_type": None,
+        "building_on_phase": False,
+        "retrain_dict": {
+        "retrain_from_phase": "4",
+            "separation_scheme": "ds",
+            "retrained_letters": ["E", "H"],
+        }
+    }
+
+
+
+## Parameter Dict 
+
 ## Dataset Descriptor
 A Dataset a dictionary with the following keys:
 "datasets": values is a list of datasets you want to use for input (in this case, case names)
@@ -8,9 +33,9 @@ A Dataset a dictionary with the following keys:
 
 "output_fields": a list of output fields 
 
-"input_slices": Number of samples (days, in this case) to put into a single input sequence
+"input_samples": Number of samples (days, in this case) to put into a single input sequence
 
-"output_slices": Number of samples (days, in this case) to put into a single output sequence
+"output_samples": Number of samples (days, in this case) to put into a single output sequence
 
 "output_slices_offset": Days of offset from the edge of an input sequence to an output sequence (in most cases, just 1)
 
@@ -74,6 +99,14 @@ x_raw -
 
 y_raw - 
 
+#Maybe x_normalized, y_normalized, x_unnormalized, y_unnormalized 
+
+
+## Save paths
+
+generated_files/descriptors/phase_letter/{files}
+generated_files/datasets/phase_letter/dataset_name/{files}
+generated_files/experiments/phase_letter_model/dataset_name/{files}
 
 
 

@@ -87,8 +87,21 @@ def get_graph_folder_path(experiment_descriptor, kind):
         os.mkdir(image_path)
     return image_path
 
+
+def return_subset_keys(y_true, x_pred, y_key, filter_results):
+    #Get just the caseids
+    y_cases = y_key[:, 1]
+    #Figure out where the results match the caseids 
+    #Got this handy technique from a tutorial (spark something) but forgot where 
+    valid_indexes = np.asarray(y_cases == filter_results).nonzero()
+    #Restrict to just those, if possible. 
+    y_true  = y_true[valid_indexes]
+    x_pred = x_pred[valid_indexes]
+    y_key = y_key[valid_indexes]
+    return y_true, x_pred, y_key
+
 #Reformats the prediction data into something that can be graphed 
-def get_usable_pred_data(dataset_descriptor, dataset_result, experiment_result, index=0, kind="full"):
+def get_usable_pred_data(dataset_descriptor, dataset_result, experiment_result, index=0, kind="full", filter_results=None):
     columns = dataset_descriptor["output_fields"]
     if kind == "full": 
     #Try for one, then you can generalize 
@@ -110,19 +123,29 @@ def get_usable_pred_data(dataset_descriptor, dataset_result, experiment_result, 
         x_pred = x_pred.reshape(x_pred.shape[0]*x_pred.shape[1], x_pred.shape[2])
     if y_key.ndim > 2:
         y_key = y_key.reshape(y_key.shape[0]*y_key.shape[1], y_key.shape[2])
+    
     #Get proper index of values
     y_true = y_true[:, index]
     x_pred = x_pred[:, index]
     y_key = np.squeeze(y_key)
+
+
+    if filter_results:
+        y_true, x_pred, y_key = return_subset_keys(y_true, x_pred, y_key, filter_results)
+    #Here is where we relagate y_key to being only the first feature (Time) -- 
+    y_key = y_key[:, 0]
+
+    #This is where we may also need to filter to a specific case?
+    #Or at least allow for that kind of filtering? 
     return y_true, x_pred, y_key
 
 
 #Graphs the prediction against the actual value
-def graph_prediction_against_value(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result, index=0, kind="full"):
+def graph_prediction_against_value(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result, index=0, kind="full", filter_results=None):
     #Works well for 2D ARRAY ONLY. 
     #You need to figure this out for 3D ARRAY Next! 
     columns = dataset_descriptor["output_fields"]
-    y_true, x_pred, y_key = get_usable_pred_data(dataset_descriptor, dataset_result, experiment_result, index=index, kind=kind)
+    y_true, x_pred, y_key = get_usable_pred_data(dataset_descriptor, dataset_result, experiment_result, index=index, kind=kind, filter_results=filter_results)
     #Create the figure
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=y_key, y=y_true, name="True", mode="markers"))
@@ -136,8 +159,6 @@ def graph_prediction_against_value(dataset_descriptor, dataset_result, experimen
     title_feature = str(columns[index])
     title_feature = title_feature.replace("/", "_")
     graph_title = graph_folder +title_feature+"_predicted_vs_actual.png"
-    #CHANGE HERE 
-    print(title_feature)
     fig.write_image(graph_title)
     #fig.show()
 
@@ -169,7 +190,7 @@ def save_all_per_feature_graphs(dataset_descriptor, experiment_descriptor, exper
 
 
 #Saves graphs on predictions for all features 
-def save_all_prediction_graphs(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result): 
+def save_all_prediction_graphs(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result, filter_results=None): 
     columns = dataset_descriptor["output_fields"]
     num_columns = len(columns)
     kinds = ["full", "train", "test"]
@@ -178,7 +199,7 @@ def save_all_prediction_graphs(dataset_descriptor, dataset_result, experiment_de
     for dataset_kind in kinds: 
         #For each data variable 
         for i in range(0, num_columns):
-            graph_prediction_against_value(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result, index=i, kind=dataset_kind)
+            graph_prediction_against_value(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result, index=i, kind=dataset_kind, filter_results=filter_results)
 
 def save_all_model_history_graphs(experiment_descriptor, experiment_result):
     model_descriptor = experiment_descriptor["model"]
@@ -249,12 +270,13 @@ def load_everything(path):
     return dataset_descriptor, dataset_result, experiment_descriptor, experiment_result
 
 
-def just_visualize(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result):
+def just_visualize(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result, filter_results=None):
     ##I don't think we need to unnormalize for now. -- but probably want to check your ability
     ##To do so. 
+    #CHANGE BACK LATER - CHANGE IS HERE, CHECK 
     unnormalize_data(dataset_descriptor, dataset_result, experiment_result)
     #Later, but not now. 
-    save_all_prediction_graphs(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result)
+    save_all_prediction_graphs(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result, filter_results=filter_results)
     save_all_model_history_graphs(experiment_descriptor, experiment_result)
     save_all_per_feature_graphs(dataset_descriptor, experiment_descriptor, experiment_result)
 
@@ -264,3 +286,4 @@ def just_visualize(dataset_descriptor, dataset_result, experiment_descriptor, ex
 #Take out clinical in output?
 #Clean up test 
 #Other types of experiments 
+#Saving 

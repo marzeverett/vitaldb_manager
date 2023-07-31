@@ -6,6 +6,9 @@ import math
     #Model index (which kind of group, like shallow or deep, or predict)
         #Scaling factor 
 
+loss_function = "mse"
+num_epochs = 3 
+verbose_bool = True 
 #NEED TO FIX 
 def return_base_lstm_model(num_nodes):
     model = {
@@ -26,15 +29,15 @@ def return_base_lstm_model(num_nodes):
                     },
                 ],
             "final_activation": "relu",
-            "loss": "mse",
+            "loss": loss_function,
             "optimizer": "adam",
             "batch_size": 32,
-            "epochs": 3,
+            "epochs": num_epochs,
             "test_split": 0.1,
             "validation_split": 0.2,
             "use_multiprocessing": True,
             "metrics": ["mse", "mape", "mae"],
-            "verbose": True,
+            "verbose": verbose_bool,
         }
     return model
 
@@ -131,16 +134,16 @@ def create_deep_lstm_model_object(num_nodes):
             #Don't include output, code will figure it out. 
             "layers": layers,
             "final_activation": "relu",
-            "loss": "mse",
+            "loss": loss_function,
             "optimizer": "adam",
             "batch_size": 32,
             #Change from previous 
-            "epochs": 150,
+            "epochs": num_epochs,
             "test_split": 0.1,
             "validation_split": 0.2,
             "use_multiprocessing": True,
             "metrics": ["mse", "mape", "mae"],
-            "verbose": False,
+            "verbose": verbose_bool,
         }
     return model 
 
@@ -163,16 +166,16 @@ def create_predict_lstm_model_object(num_nodes):
                     },
                 ],
             "final_activation": "sigmoid",
-            "loss": "mse",
+            "loss": loss_function,
             "optimizer": "adam",
             "batch_size": 32,
-            "epochs": 100,
+            "epochs": num_epochs,
             "test_split": 0.1,
             "validation_split": 0.2,
             "use_multiprocessing": True,
             "metrics": ['mse', 'BinaryAccuracy', 'Precision', 'Recall', 
         'TruePositives', 'TrueNegatives','FalsePositives', 'FalseNegatives'],
-            "verbose": False,
+            "verbose": verbose_bool,
         }
     return model 
 
@@ -190,17 +193,17 @@ def create_basic_ae_model_object(num_nodes):
                 },
             ],
         "final_activation": "relu",
-        "loss": "mse",
+        "loss": loss_function,
         #"loss_function": "mean_square_error",
         "optimizer": "adam",
         "batch_size": 32,
-        "epochs": 100,
+        "epochs": num_epochs,
         "test_split": 0.1,
         "validation_split": 0.2,
         "use_multiprocessing": True,
         #"metrics": ["mse"]
         "metrics": ["mse"],
-        "verbose": False,
+        "verbose": verbose_bool,
     }
     return model 
 
@@ -231,17 +234,17 @@ def create_deep_ae_model_object(num_nodes):
                 },
             ],
         "final_activation": "relu",
-        "loss": "mse",
+        "loss": loss_function,
         #"loss_function": "mean_square_error",
         "optimizer": "adam",
         "batch_size": 32,
-        "epochs": 150,
+        "epochs": num_epochs,
         "test_split": 0.1,
         "validation_split": 0.2,
         "use_multiprocessing": True,
         #"metrics": ["mse"]
         "metrics": ["mse"],
-        "verbose": False,
+        "verbose": verbose_bool,
     }
     return model 
 
@@ -261,7 +264,7 @@ def return_model(kind, index, num_nodes):
     #Autoencoding 
     elif kind == "ae":
         if index == "0":
-            model = create_deep_lstm_model_object(num_nodes)
+            model = create_basic_ae_model_object(num_nodes)
         elif index == "1": 
             model = create_deep_ae_model_object(num_nodes)
     return model 
@@ -283,7 +286,7 @@ def create_experiment_descriptor(scaling_factor, dataset_descriptor, dataset_res
     x_vect = dataset_result["x"]
     if dataset_descriptor["target_model"] == "ae":
         #Number of features - might want to check this so model is not HUGE 
-        nodes = math.ceil(x.vect.shape[1]*scaling_factor)
+        nodes = math.ceil(x_vect.shape[1]*scaling_factor)
     else:
         nodes = scaling_factor
     model = return_model(kind, group, nodes)

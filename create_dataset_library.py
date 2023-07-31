@@ -1,7 +1,15 @@
+import os 
+import pickle
+import json 
 import vitaldb 
 import pandas as pd 
 import matplotlib.pyplot as plt 
 import numpy as np 
+#Need this stuff to so we can preprocess with an AE 
+os.environ['TF_CPP_MIN_LOG_LEVEL']  = '3'
+import tensorflow as tf
+tf.get_logger().setLevel('ERROR')
+from tensorflow.keras import datasets, layers, models
 
 
 # generated_files/descriptors/phase_letter/{files}
@@ -9,29 +17,29 @@ import numpy as np
 # generated_files/experiments/phase_letter/scaling_factor/dataset_name/{files}
 
 
-def get_ae_descriptor(ae_dict, dataset_descriptor):
-    path = f"generated_files/datasets/{ae_path_dict['phase']}_{ae_path_dict['letter']}/{ae_path_dict['dataset']}/data_descriptor.pickle"
+def get_ae_descriptor(ae_path_dict):
+    path = f"generated_files/datasets/{ae_path_dict['phase']}_{ae_path_dict['letter']}/{ae_path_dict['dataset']}/dataset_descriptor.pickle"
     with open(path, "rb") as f:
         ae_dataset_descriptor = pickle.load(f)
     return ae_dataset_descriptor
 
-def get_ae_latent_model(ae_dict, dataset_descriptor):
+def get_ae_latent_model(ae_path_dict, dataset_descriptor):
     scaling_factor = dataset_descriptor["scaling_factor"]
     path = f"generated_files/experiments/{ae_path_dict['phase']}_{ae_path_dict['letter']}/{scaling_factor}/{ae_path_dict['dataset']}/latent_model"
     ae_model = models.load_model(path)
     return ae_model
 
 #Everything it returns is a list because of the time slice issue 
-def get_ae_latent_space(ae_dict, x_columns, x_dataset_list):
+def get_ae_latent_space(ae_dict, x_columns, x_dataset_list, dataset_descriptor):
     ae_model = get_ae_latent_model(ae_dict, dataset_descriptor)
-    ae_dataset_descriptor = get_ae_descriptor(ae_dict, dataset_descriptor)
+    ae_dataset_descriptor = get_ae_descriptor(ae_dict)
 
     latent_space = [] 
     #Recursive case - this AE depends on other AEs to preprocess input 
     if ae_dataset_descriptor["ae_letter"] != None:
-        ae_dicts = dataset_object["ae_dicts"]
+        ae_dicts = ae_dataset_descriptor["ae_dicts"]
         for sub_dict in ae_dicts:
-            ae_output = get_ae_latent_space(sub_dict, x_columns, x_dataset_list)
+            ae_output = get_ae_latent_space(sub_dict, x_columns, x_dataset_list, ae_dataset_descriptor)
             if latent_space == []:
                  latent_space = ae_output
             else:
@@ -39,27 +47,28 @@ def get_ae_latent_space(ae_dict, x_columns, x_dataset_list):
                  latent_space = np.hstack((latent_space, ae_output))
     #Base case - model does not depend on other AEs to preprocess inputs 
     else:
+        #This is the base case - so should be starting with raw data here 
         model_inputs = ae_dataset_descriptor["input_fields"]
         relevant_indexes = []
-        #This is the part we'll have to change if conv. 
         #We need to restrict the input to what the columns reflect 
         for input_col in model_inputs:
             relevant_indexes.append(x_columns.index(input_col))
+            
         ae_input = x_dataset_list[:, relevant_indexes]
         latent_space = ae_model.predict(ae_input)
     return latent_space
 
  #This function could use a LOT better documentation    
 def process_aes(dataset_descriptor, x_dataset_list):
-    ae_dicts = dataset_object["ae_dicts"]
+    ae_dicts = dataset_descriptor["ae_dicts"]
     #execute_list, ae_dict = build_ae_tree(ae_paths)
-    x_columns = dataset_object["input_fields"]
+    x_columns = dataset_descriptor["input_fields"]
     #For each identified autoencoder, in each stage. 
     latent_space = []
     #latent_space = []
     for ae_dict in ae_dicts:
         #This might need to be returned as a list 
-        ae_output = get_ae_latent_space(ae_dict, x_columns, x_dataset_list)
+        ae_output = get_ae_latent_space(ae_dict, x_columns, x_dataset_list, dataset_descriptor)
         if latent_space == []:
             latent_space = ae_output
         else:
@@ -157,11 +166,10 @@ def create_dataset_from_dataset_descriptor(dataset_descriptor):
         x_key_dataset = dataset[dataset_descriptor["keys"]].to_numpy()
         y_key_dataset = dataset[dataset_descriptor["keys"]].to_numpy()
         
+        #Change here 
         #Preprocess with AEs. 
         if dataset_descriptor["ae_letter"] != None:
-            for ae_dict in dataset_descriptor["ae_dicts"]:
-                x_dataset = process_aes(dataset_descriptor, x_dataset)
-
+            x_dataset = process_aes(dataset_descriptor, x_dataset)
         #Time slice it if the target is LSTM
         if dataset_descriptor["target_model"] == "lstm":
             x_dataset, y_dataset, x_key_dataset, y_key_dataset = time_slice(dataset_descriptor, x_dataset, y_dataset, x_key_dataset, y_key_dataset)

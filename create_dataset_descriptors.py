@@ -51,7 +51,7 @@ cases = {
 #Change here! Need to make normal later 
 cases = {
     4481: {"index": 0},
-    #3719: {"index": 1},
+    #: {"index": 1},
 }
 
 datastreams = {
@@ -105,6 +105,7 @@ def return_default_dataset_descriptor():
         "output_offset": 1,
         "l_combo": 0,
         "keys": ["Time", "caseid"]
+        #"keys": ["Time"]
         #"location_scheme": 0,
     }
     return default_dataset_descriptor.copy()
@@ -158,7 +159,7 @@ def get_ae_paths(dataset_descriptor, using_datastreams):
     #If we are synthesizing on datastream:
     if dataset_descriptor["ae_synthesis"] == "ds":
         #Get each datastream that synthesizes
-        use_ds_scheme = 0 
+        use_ds_scheme = 1 
         for datastream_name in list(using_datastreams.keys()):
             synth_datastream_index = using_datastreams[datastream_name]["index"]
             new_use_phase = use_phase   
@@ -189,7 +190,7 @@ def generate_dataset_descriptor(dataset_descriptor, datastream_index, input_samp
             input_fields = input_fields + using_datastreams[datastream_name]["fields"]
             ds_combo = 0
     else:
-        input_fields = using_datastreams[datastream_name]["fields"]
+        input_fields = using_datastreams[datastream_index]["fields"]
         ds_combo = using_datastreams[datastream_index]["index"]
     dataset_descriptor["input_fields"] = input_fields
     dataset_descriptor["ds_combo"] = ds_combo
@@ -236,7 +237,7 @@ def break_out_descriptors(dataset_descriptor):
             using_datastreams.pop(stream)
 
     #If it's broken out by datastream - going to have to pass the using datastreams 
-    if dataset_descriptor["ds_scheme"] == "1":
+    if dataset_descriptor["ds_scheme"] == 1:
         input_streams = list(using_datastreams.keys())
     else:
         #Keyword - know to use all input streams 
@@ -261,7 +262,8 @@ def break_out_descriptors(dataset_descriptor):
         #If it's not a retrain, add it
         else:
             descriptors_list.append(new_descriptor)
-        return descriptors_list
+    #Change is here!
+    return descriptors_list
 
 
 #Regression, AE, or predict 

@@ -6,6 +6,7 @@ letters = ['A', 'B', 'C', 'E', 'F', 'G', 'L',
 
 #letters = ['A', 'B', 'C', 'E']
 
+letters = ['F']
 
 phase_dict = {
     "phase_name": "1",
@@ -30,5 +31,5 @@ phase_dict = {
 }
 
 
-run_experiments.run_phase_experiments(phase_dict, letters)
- 
+run_experiments.test_phase_experiments(phase_dict, letters)
+#run_experiments.run_phase_experiments(phase_dict, letters)

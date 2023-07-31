@@ -90,6 +90,8 @@ def return_letter_parameter_dict_list(phase_dict, letters):
             param_dict["l_scheme"] = 1
 
         #Network 2 - Datastreams 
+        if letter == 'F': 
+            param_dict["ae_letter"] = 'E'
         elif letter == 'G':
             param_dict["ae_letter"] = 'E'
             param_dict["ae_synthesis"] = "ds"

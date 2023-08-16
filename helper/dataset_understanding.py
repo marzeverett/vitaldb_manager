@@ -2,6 +2,9 @@ import vitaldb
 import pandas as pd 
 import matplotlib.pyplot as plt 
 
+#Need to sys path append here 
+! 
+
 #Help from here: https://sparkbyexamples.com/pandas/pandas-add-constant-column-to-dataframe/ 
 #And here: https://sparkbyexamples.com/pandas/pandas-add-constant-column-to-dataframe/ 
 snu = ["SNUADC/ECG_II", "SNUADC/ECG_V5", "SNUADC/ART", "SNUADC/FEM", "SNUADC/CVP" ]
@@ -24,6 +27,8 @@ df_cases = pd.read_csv("vital_csvs/clinical_info.csv")
 #Restrict to only the cases of interest 
 df_cases = df_cases[df_cases["caseid"].isin(valid_cases)]
 
+
+print(len(df_cases))
 #Histogram - useful info 
 param = "emop"
 sub_df = df_cases[param]

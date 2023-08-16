@@ -7,7 +7,7 @@ import math
         #Scaling factor 
 
 loss_function = "mse"
-num_epochs = 3 
+num_epochs = 3
 verbose_bool = True 
 #NEED TO FIX 
 def return_base_lstm_model(num_nodes):
@@ -20,13 +20,30 @@ def return_base_lstm_model(num_nodes):
                 [
                     {
                         "type": "LSTM",
-                        #Placeholder
-                        "num_nodes": num_nodes,
+                        "num_nodes": round(num_nodes*6),
+                        "return_sequences": True,
                     },
                     {
                         "type": "Dropout",
                         "percent": 0.2,
                     },
+                    {
+                        "type": "LSTM",
+                        "num_nodes": round(num_nodes*4),
+                        "return_sequences": True,
+                    },
+                    {
+                        "type": "Dropout",
+                        "percent": 0.2,
+                    },
+                    {
+                        "type": "LSTM",
+                        "num_nodes": round(num_nodes, 2)
+                    },
+                    {
+                        "type": "Dropout",
+                        "percent": 0.2,
+                    }
                 ],
             "final_activation": "relu",
             "loss": loss_function,
@@ -187,9 +204,19 @@ def create_basic_ae_model_object(num_nodes):
             [
                 {
                     "type": "Dense",
+                    "num_nodes": num_nodes * 3,
+                    "activation": "relu",
+                },
+                {
+                    "type": "Dense",
                     "num_nodes": num_nodes,
                     "activation": "relu",
                     "name": "latent_space"
+                },
+                {
+                    "type": "Dense",
+                    "num_nodes": num_nodes * 3,
+                    "activation": "relu",
                 },
             ],
         "final_activation": "relu",
@@ -249,18 +276,23 @@ def create_deep_ae_model_object(num_nodes):
     return model 
 
 
-def return_model(kind, index, num_nodes):
+def return_model(dataset_descriptor, kind, index, num_nodes):
     #LSTM Regression
+    if dataset_descriptor["predict_type"]:
+        predict = True
+    else:
+        predict = False 
     if kind == "lstm":
         #Shallow regression model 
         if index == "0":
-            model = return_base_lstm_model(num_nodes)
+            if not predict:
+                model = return_base_lstm_model(num_nodes)
+            else:
+                model = create_predict_lstm_model_object(num_nodes)
         #Deep regression model
         elif index == "1": 
             model = create_deep_lstm_model_object(num_nodes)
-        #Shallow prediction model 
-        elif index == "2":
-            model = create_predict_lstm_model_object(num_nodes)
+            
     #Autoencoding 
     elif kind == "ae":
         if index == "0":
@@ -289,7 +321,7 @@ def create_experiment_descriptor(scaling_factor, dataset_descriptor, dataset_res
         nodes = math.ceil(x_vect.shape[1]*scaling_factor)
     else:
         nodes = scaling_factor
-    model = return_model(kind, group, nodes)
+    model = return_model(dataset_descriptor, kind, group, nodes)
     experiment_1 = {
         "model": model,
         "dataset_name": dataset_descriptor["dataset_name"],
@@ -304,3 +336,63 @@ def create_experiment_descriptor(scaling_factor, dataset_descriptor, dataset_res
 
 
 
+# #NEED TO FIX 
+# def return_base_lstm_model(num_nodes):
+#     model = {
+#             "kind": "LSTM",
+#             "model_type": "Sequential",
+#             #Don't include input, code will figure it out. 
+#             #Don't include output, code will figure it out. 
+#             "layers": 
+#                 [
+#                     {
+#                         "type": "LSTM",
+#                         #Placeholder
+#                         "num_nodes": num_nodes,
+#                     },
+#                     {
+#                         "type": "Dropout",
+#                         "percent": 0.2,
+#                     },
+#                 ],
+#             "final_activation": "relu",
+#             "loss": loss_function,
+#             "optimizer": "adam",
+#             "batch_size": 32,
+#             "epochs": num_epochs,
+#             "test_split": 0.1,
+#             "validation_split": 0.2,
+#             "use_multiprocessing": True,
+#             "metrics": ["mse", "mape", "mae"],
+#             "verbose": verbose_bool,
+#         }
+#     return model
+
+
+# def create_basic_ae_model_object(num_nodes):
+#     model = {
+#         "kind": "AE",
+#         "model_type": "Sequential",
+#         "layers": 
+#             [
+#                 {
+#                     "type": "Dense",
+#                     "num_nodes": num_nodes,
+#                     "activation": "relu",
+#                     "name": "latent_space"
+#                 },
+#             ],
+#         "final_activation": "relu",
+#         "loss": loss_function,
+#         #"loss_function": "mean_square_error",
+#         "optimizer": "adam",
+#         "batch_size": 32,
+#         "epochs": num_epochs,
+#         "test_split": 0.1,
+#         "validation_split": 0.2,
+#         "use_multiprocessing": True,
+#         #"metrics": ["mse"]
+#         "metrics": ["mse"],
+#         "verbose": verbose_bool,
+#     }
+#     return model 

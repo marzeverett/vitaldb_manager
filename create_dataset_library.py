@@ -166,10 +166,11 @@ def create_dataset_from_dataset_descriptor(dataset_descriptor):
         x_key_dataset = dataset[dataset_descriptor["keys"]].to_numpy()
         y_key_dataset = dataset[dataset_descriptor["keys"]].to_numpy()
         
-        #Change here 
         #Preprocess with AEs. 
         if dataset_descriptor["ae_letter"] != None:
+            #print("Before ae processing: ", x_dataset.shape)
             x_dataset = process_aes(dataset_descriptor, x_dataset)
+            #print("After ae processing: ", x_dataset.shape)
         #Time slice it if the target is LSTM
         if dataset_descriptor["target_model"] == "lstm":
             x_dataset, y_dataset, x_key_dataset, y_key_dataset = time_slice(dataset_descriptor, x_dataset, y_dataset, x_key_dataset, y_key_dataset)

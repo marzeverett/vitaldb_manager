@@ -51,7 +51,7 @@ cases = {
 #Change here! Need to make normal later 
 cases = {
     4481: {"index": 0},
-    #: {"index": 1},
+    #3719: {"index": 1},
 }
 
 datastreams = {
@@ -67,19 +67,24 @@ datastreams = {
         "index": 3,
         "fields": ["Solar8000/VENT_MAWP", "Solar8000/VENT_RR", "Solar8000/VENT_TV", "Solar8000/VENT_PPLAT", "Solar8000/VENT_PIP", "Solar8000/VENT_MV", "Solar8000/VENT_INSP_TM", "Solar8000/BT"]
         },
-    "clinical": {
-        "index": 4,
-        "fields": ["anestart", "aneend", "age", "sex", "height", "weight",
-                    "bmi", "dx", "dis", "preop_pft", "preop_plt", "preop_pt", 
-                    "preop_aptt", "preop_na", "preop_k", "preop_gluc", "preop_cr", 
-                    "intraop_uo", "intraop_ffp"]
-    },
+    # "clinical": {
+    #     "index": 4,
+    #     "fields": ["anestart", "aneend", "age", "sex", "height", "weight",
+    #                 "bmi", "dx", "dis", "preop_pft", "preop_plt", "preop_pt", 
+    #                 "preop_aptt", "preop_na", "preop_k", "preop_gluc", "preop_cr", 
+    #                 "intraop_uo", "intraop_ffp"]
+    # },
     # "lab": {
     #     "index": 5,
     #     "fields": ["wbc", "hb", "hct", "gluc", "cr", "na", "k", "ammo",
     #             "ptinr", "pt%", "ptsec", "aptt", "ph"]
     # }
 }
+
+clinical_fields =  ["anestart", "aneend", "age", "sex", "height", "weight",
+                     "bmi", "dx", "dis", "preop_pft", "preop_plt", "preop_pt", 
+                     "preop_aptt", "preop_na", "preop_k", "preop_gluc", "preop_cr", 
+                     "intraop_uo", "intraop_ffp"]
 
 predictions = ["emop", "dis_mortality_risk", "gluc_risk"]
 
@@ -206,12 +211,20 @@ def generate_dataset_descriptor(dataset_descriptor, datastream_index, input_samp
         #Right here - need to take out any clinical data. (for regression, but not ae?)
         #Maybe for both. 
         dataset_descriptor["output_fields"] = input_fields
+    
     elif dataset_descriptor["task_type"] == "prediction":
         if isinstance(dataset_descriptor["predict_type"], list):
             dataset_descriptor["output_fields"] = dataset_descriptor["predict_type"]
         else:
             dataset_descriptor["output_fields"] = [dataset_descriptor["predict_type"]]
     
+    #Right here -- can add input clinical data to input fields
+    #If it's not an autoencoder 
+    #Just a try 
+    #CHANGE is here 
+    if dataset_descriptor["target_model"] != "ae":
+        dataset_descriptor["input_fields"] = dataset_descriptor["input_fields"]+clinical_fields
+
     #These depend on ae_synthesis, prev phase, or retrain
     this_letter = dataset_descriptor['letter']
     dataset_descriptor["ae_dicts"] = []

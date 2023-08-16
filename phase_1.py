@@ -6,7 +6,7 @@ letters = ['A', 'B', 'C', 'E', 'F', 'G', 'L',
 
 #letters = ['A', 'B', 'C', 'E']
 
-letters = ['E']
+#letters = ['E']
 
 phase_dict = {
     "phase_name": "1",
@@ -18,9 +18,7 @@ phase_dict = {
     "output_samples": [10],
     "test": False,
     "retrain": False,
-    #"predict_type": None,
     "predict_type": None,
-
     "building_on_phase": False,
     "retrain_dict": {
         "prev_delete_stream": "clinical",
@@ -32,15 +30,12 @@ phase_dict = {
     "ae_scaling_factors": [0.7]
 }
 
-#predict types can be []
 #REMEMBER TO CHANGE PREDICT TYPE AND TASK TYPE BOTH
 #predictions = ["emop", "dis_mortality_risk", "gluc_risk"]
 
-#Regular
 
-
-run_experiments.test_phase_experiments(phase_dict, letters)
-#run_experiments.run_phase_experiments(phase_dict, letters)
+#run_experiments.test_phase_experiments(phase_dict, letters)
+run_experiments.run_phase_experiments(phase_dict, letters)
 
 # #Regular
 # phase_dict = {

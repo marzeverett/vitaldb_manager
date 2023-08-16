@@ -154,7 +154,6 @@ def create_deep_lstm_model_object(num_nodes):
             "loss": loss_function,
             "optimizer": "adam",
             "batch_size": 32,
-            #Change from previous 
             "epochs": num_epochs,
             "test_split": 0.1,
             "validation_split": 0.2,

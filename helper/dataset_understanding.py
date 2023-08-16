@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 
 #Need to sys path append here 
-! 
 
 #Help from here: https://sparkbyexamples.com/pandas/pandas-add-constant-column-to-dataframe/ 
 #And here: https://sparkbyexamples.com/pandas/pandas-add-constant-column-to-dataframe/ 
@@ -12,7 +11,7 @@ orch = ["Orchestra/RFTN20_CE", "Orchestra/RFTN20_CP", "Orchestra/RFTN20_CT", "Or
 bis = ["BIS/BIS", "BIS/EEG1_WAV", "BIS/EEG2_WAV", "BIS/EMG", "BIS/SEF", "BIS/SQI", "BIS/SR", "BIS/TOTPOW"]
 solar = ["Solar8000/VENT_MAWP", "Solar8000/VENT_RR", "Solar8000/VENT_TV", "Solar8000/VENT_PPLAT", "Solar8000/VENT_PIP", "Solar8000/VENT_MV", "Solar8000/VENT_INSP_TM", "Solar8000/BT"]
 #43 of these 
-valid_cases = [4481, 3719, 1292, 397, 2327, 6297, 5018, 6009, 1820, 2332, 4255, 1191, 1959, 553, 3631, 2738, 818, 1590, 55, 5175, 4283, 5693, 1730, 5442, 3524, 4684, 5837, 1231, 6227, 985, 3930, 2267, 4573, 5983, 2272, 6246, 5607, 1900, 3694, 2168, 1785, 1018, 251]
+valid_cases = [4481, 3719, 1292, 397, 2327, 5018, 6009, 1820, 2332, 4255, 1191, 1959, 553, 3631, 2738, 818, 1590, 55, 5175, 4283, 5693, 1730, 5442, 3524, 4684, 5837, 1231, 6227, 985, 3930, 2267, 4573, 5983, 2272, 6246, 5607, 1900, 3694, 2168, 1785, 1018, 251]
 clinical_info = ["anestart", "aneend", "age", "sex", "height", "weight", 
 "bmi", "emop", "dx", "dis"]
 
@@ -21,7 +20,7 @@ cat = ["sex", "dx"]
 total_tracks = snu+bis+orch+solar
 
 #Read in the cases 
-df_cases = pd.read_csv("vital_csvs/clinical_info.csv")
+df_cases = pd.read_csv("../vital_csvs/clinical_info.csv")
 
 
 #Restrict to only the cases of interest 
@@ -29,33 +28,47 @@ df_cases = df_cases[df_cases["caseid"].isin(valid_cases)]
 
 
 print(len(df_cases))
-#Histogram - useful info 
-param = "emop"
-sub_df = df_cases[param]
-#sub_df = sub_df / 86400
-plt.hist(sub_df)
-plt.xticks(rotation=10)
-plt.xlabel("Count")
-plt.ylabel(param)
-plt.title(f"Histogram of {param} in Dataset")
-plt.show()
+
+# #Histogram - useful info 
+# param = "emop"
+# sub_df = df_cases[param]
+# #sub_df = sub_df / 86400
+# plt.hist(sub_df)
+# plt.xticks(rotation=10)
+# plt.xlabel("Count")
+# plt.ylabel(param)
+# plt.title(f"Histogram of {param} in Dataset")
+# plt.show()
 
 
 #print(df_cases['dx'].value_counts())
 
-#First read in all the the datasets 
-#Compare
+
+# df_cases = df_cases.loc[df_cases["emop"] == 1]
+# # #df_cases = df_cases.loc[df_cases["emop"]]
+# # ##
+# print(len(df_cases.index))
+# print(df_cases["caseid"])
+
+print(df_cases["dx"].unique())
 
 
-
-
-
-
-
-
-#df_cases = df_cases.loc[df_cases["emop"] == 1]
-#df_cases = df_cases.loc[df_cases["emop"]]
-##
-#print(len(df_cases.index))
-
-#print(df_cases["dx"].unique())
+#Figure out how may have a high discharge risk 
+# case_ids = []
+# num_of_interest = 0
+# not_gluc_risk = []
+# for case in valid_cases:
+#     #Read in the case
+#     df = pd.read_csv(f"../vital_csvs/{case}.csv")
+#     if "gluc_risk" in list(df.columns):
+#         if df["gluc_risk"][0] == 1:   
+#             num_of_interest += 1
+#             case_ids.append(case)
+#     else:
+#         not_gluc_risk.append(case)
+#     # df = df.loc[df["dis_mortality_risk"] == 1]
+#     # print(len(df.index))
+#     # print(df["case_id"])
+# print(case_ids)
+# print(num_of_interest)
+# print(not_gluc_risk)

@@ -49,10 +49,10 @@ cases = {
 }
 
 #Change here! Need to make normal later 
-cases = {
-    4481: {"index": 0},
-    #3719: {"index": 1},
-}
+# cases = {
+#     4481: {"index": 0},
+#     #3719: {"index": 1},
+# }
 
 datastreams = {
     "orch": {
@@ -275,7 +275,6 @@ def break_out_descriptors(dataset_descriptor):
         #If it's not a retrain, add it
         else:
             descriptors_list.append(new_descriptor)
-    #Change is here!
     return descriptors_list
 
 

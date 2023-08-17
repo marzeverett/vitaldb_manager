@@ -94,8 +94,8 @@ def build_layer(model, layer_object):
             return_sequences=layer_object["return_sequences"]
         else:
             return_sequences = False
-        #model.add(layers.LSTM(num_nodes, return_sequences=return_sequences))
-        model.add(layers.LSTM(num_nodes, return_sequences=return_sequences, kernel_regularizer=regularizers.l1_l2(l1=0.1, l2=0.01)))
+        model.add(layers.LSTM(num_nodes, return_sequences=return_sequences))
+        #model.add(layers.LSTM(num_nodes, return_sequences=return_sequences, kernel_regularizer=regularizers.l1_l2(l1=0.1, l2=0.01)))
     
     #Dropout Layer 
     if layer_type == "Dropout":

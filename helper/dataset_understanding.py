@@ -11,7 +11,7 @@ orch = ["Orchestra/RFTN20_CE", "Orchestra/RFTN20_CP", "Orchestra/RFTN20_CT", "Or
 bis = ["BIS/BIS", "BIS/EEG1_WAV", "BIS/EEG2_WAV", "BIS/EMG", "BIS/SEF", "BIS/SQI", "BIS/SR", "BIS/TOTPOW"]
 solar = ["Solar8000/VENT_MAWP", "Solar8000/VENT_RR", "Solar8000/VENT_TV", "Solar8000/VENT_PPLAT", "Solar8000/VENT_PIP", "Solar8000/VENT_MV", "Solar8000/VENT_INSP_TM", "Solar8000/BT"]
 #43 of these 
-valid_cases = [4481, 3719, 1292, 397, 2327, 5018, 6009, 1820, 2332, 4255, 1191, 1959, 553, 3631, 2738, 818, 1590, 55, 5175, 4283, 5693, 1730, 5442, 3524, 4684, 5837, 1231, 6227, 985, 3930, 2267, 4573, 5983, 2272, 6246, 5607, 1900, 3694, 2168, 1785, 1018, 251]
+valid_cases = [4481, 3719, 1292, 2327, 5018, 6009, 1820, 2332, 4255, 1191, 1959, 553, 3631, 2738, 818, 1590, 55, 4283, 5693, 5442, 3524, 4684, 5837, 1231, 6227, 985, 3930, 2267, 4573, 5983, 2272, 6246, 5607, 1900, 3694, 1785, 1018, 251]
 clinical_info = ["anestart", "aneend", "age", "sex", "height", "weight", 
 "bmi", "emop", "dx", "dis"]
 
@@ -68,3 +68,20 @@ print(len(df_cases))
 # print("AVG ", sum(obs)/len(obs))
 # print("MAX ", max(obs), case_ids[obs.index(max(obs))])
 # print("MIN ", min(obs), case_ids[obs.index(min(obs))])
+
+
+#Figure out number of observations 
+case_ids = []
+obs = []
+null_cases = 0 
+for case in valid_cases:
+    #Read in the case
+    df = pd.read_csv(f"../vital_csvs/{case}_normalized.csv")
+    if df.isnull().values.any():
+        case_ids.append(case)
+    # df = df.loc[df["dis_mortality_risk"] == 1]
+    # print(len(df.index))
+
+print(case_ids)
+
+

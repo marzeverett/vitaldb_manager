@@ -26,7 +26,6 @@ df_cases = pd.read_csv("../vital_csvs/clinical_info.csv")
 #Restrict to only the cases of interest 
 df_cases = df_cases[df_cases["caseid"].isin(valid_cases)]
 
-
 print(len(df_cases))
 
 # #Histogram - useful info 
@@ -50,25 +49,22 @@ print(len(df_cases))
 # print(len(df_cases.index))
 # print(df_cases["caseid"])
 
-print(df_cases["dx"].unique())
+#print(df_cases["dx"].unique())
 
 
-#Figure out how may have a high discharge risk 
+# #Figure out number of observations 
 # case_ids = []
-# num_of_interest = 0
-# not_gluc_risk = []
+# obs = []
 # for case in valid_cases:
 #     #Read in the case
 #     df = pd.read_csv(f"../vital_csvs/{case}.csv")
-#     if "gluc_risk" in list(df.columns):
-#         if df["gluc_risk"][0] == 1:   
-#             num_of_interest += 1
-#             case_ids.append(case)
-#     else:
-#         not_gluc_risk.append(case)
+#     obs.append(len(df.index))
+#     case_ids.append(case)
 #     # df = df.loc[df["dis_mortality_risk"] == 1]
 #     # print(len(df.index))
-#     # print(df["case_id"])
+
 # print(case_ids)
-# print(num_of_interest)
-# print(not_gluc_risk)
+
+# print("AVG ", sum(obs)/len(obs))
+# print("MAX ", max(obs), case_ids[obs.index(max(obs))])
+# print("MIN ", min(obs), case_ids[obs.index(min(obs))])

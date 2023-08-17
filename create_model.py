@@ -15,6 +15,7 @@
 #Helpful for intermediate model layer: https://androidkt.com/get-output-of-intermediate-layers-keras/  
 #Encoder example from Keras: https://keras.io/examples/vision/autoencoder/ 
 #https://stackoverflow.com/questions/63053427/keras-add-layers-to-another-model 
+#Regularization help here: https://johnthas.medium.com/regularization-in-tensorflow-using-keras-api-48aba746ae21 
 
 import pickle
 import os
@@ -93,7 +94,9 @@ def build_layer(model, layer_object):
             return_sequences=layer_object["return_sequences"]
         else:
             return_sequences = False
-        model.add(layers.LSTM(num_nodes, return_sequences=return_sequences))
+        #model.add(layers.LSTM(num_nodes, return_sequences=return_sequences))
+        model.add(layers.LSTM(num_nodes, return_sequences=return_sequences, kernel_regularizer=tensorflow.keras.regularizers.l1_l2(l1=0.1, l2=0.01)))
+    
     #Dropout Layer 
     if layer_type == "Dropout":
         if "percent" in list(layer_object.keys()):

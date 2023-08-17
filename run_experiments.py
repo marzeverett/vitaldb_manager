@@ -42,7 +42,7 @@ def run_phase_experiments(phase_dict, letters):
         dataset_descriptors_list = create_dataset_descriptors.create_dataset_descriptor_list_from_parameter_dict(param_dict)        
         #For every dataset descriptor we generated:
         print(json.dumps(param_dict, indent=4)) 
-        print(f"{len(dataset_descriptors_list)} number of descriptors generated")
+        #print(f"{len(dataset_descriptors_list)} number of descriptors generated")
         for single_dataset_descriptor in dataset_descriptors_list:
             #create a dataset result
             dataset_result = create_dataset_library.create_dataset_from_dataset_descriptor(single_dataset_descriptor)

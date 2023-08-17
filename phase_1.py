@@ -6,7 +6,7 @@ letters = ['A', 'B', 'C', 'E', 'F', 'G', 'L',
 
 #letters = ['A', 'B', 'C', 'E']
 
-#letters = ['E']
+#letters = ['A']
 
 phase_dict = {
     "phase_name": "1",

@@ -7,7 +7,7 @@ import math
         #Scaling factor 
 
 loss_function = "mse"
-num_epochs = 3
+num_epochs = 200
 verbose_bool = True 
 #NEED TO FIX 
 def return_base_lstm_model(num_nodes):

@@ -8,7 +8,9 @@ import math
 
 loss_function = "mse"
 num_epochs = 200
-verbose_bool = True 
+verbose_bool = True
+#Change here - was 32! 
+batch_size = 128 
 #NEED TO FIX 
 def return_base_lstm_model(num_nodes):
     model = {
@@ -48,7 +50,7 @@ def return_base_lstm_model(num_nodes):
             "final_activation": "relu",
             "loss": loss_function,
             "optimizer": "adam",
-            "batch_size": 32,
+            "batch_size": batch_size,
             "epochs": num_epochs,
             "test_split": 0.1,
             "validation_split": 0.2,
@@ -153,7 +155,7 @@ def create_deep_lstm_model_object(num_nodes):
             "final_activation": "relu",
             "loss": loss_function,
             "optimizer": "adam",
-            "batch_size": 32,
+            "batch_size": batch_size,
             "epochs": num_epochs,
             "test_split": 0.1,
             "validation_split": 0.2,
@@ -184,7 +186,7 @@ def create_predict_lstm_model_object(num_nodes):
             "final_activation": "sigmoid",
             "loss": loss_function,
             "optimizer": "adam",
-            "batch_size": 32,
+            "batch_size": batch_size,
             "epochs": num_epochs,
             "test_split": 0.1,
             "validation_split": 0.2,
@@ -222,7 +224,7 @@ def create_basic_ae_model_object(num_nodes):
         "loss": loss_function,
         #"loss_function": "mean_square_error",
         "optimizer": "adam",
-        "batch_size": 32,
+        "batch_size": batch_size,
         "epochs": num_epochs,
         "test_split": 0.1,
         "validation_split": 0.2,
@@ -263,7 +265,7 @@ def create_deep_ae_model_object(num_nodes):
         "loss": loss_function,
         #"loss_function": "mean_square_error",
         "optimizer": "adam",
-        "batch_size": 32,
+        "batch_size": batch_size,
         "epochs": num_epochs,
         "test_split": 0.1,
         "validation_split": 0.2,

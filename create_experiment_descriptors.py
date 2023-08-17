@@ -7,7 +7,7 @@ import math
         #Scaling factor 
 
 loss_function = "mse"
-num_epochs = 200
+num_epochs = 150
 verbose_bool = True
 #Change here - was 32! 
 batch_size = 128 

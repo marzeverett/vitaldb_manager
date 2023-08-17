@@ -23,7 +23,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']  = '3'
 #
 import tensorflow as tf
 tf.get_logger().setLevel('ERROR')
-from tensorflow.keras import datasets, layers, models
+from tensorflow.keras import datasets, layers, models, regularizers
 from tensorflow.compat.v1 import ConfigProto
 from tensorflow.compat.v1 import InteractiveSession
 
@@ -95,7 +95,7 @@ def build_layer(model, layer_object):
         else:
             return_sequences = False
         #model.add(layers.LSTM(num_nodes, return_sequences=return_sequences))
-        model.add(layers.LSTM(num_nodes, return_sequences=return_sequences, kernel_regularizer=tensorflow.keras.regularizers.l1_l2(l1=0.1, l2=0.01)))
+        model.add(layers.LSTM(num_nodes, return_sequences=return_sequences, kernel_regularizer=regularizers.l1_l2(l1=0.1, l2=0.01)))
     
     #Dropout Layer 
     if layer_type == "Dropout":

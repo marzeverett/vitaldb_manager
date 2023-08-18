@@ -4,6 +4,11 @@ import run_experiments
 letters = ['A', 'B', 'C', 'E', 'F', 'G', 'L', 
     'M', 'S', 'T', 'AC', 'AD']
 
+#Actual letters we will use!!! 
+#letters = ['A', 'C', 'E', 'F', 'G', 'S', 'T', 'AC', 'AD']
+
+letters = ['E', 'F', 'G', 'S', 'T', 'AC', 'AD']
+
 #letters = ['A', 'B', 'C', 'E']
 
 #letters = ['A']

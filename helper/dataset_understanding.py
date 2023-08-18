@@ -43,10 +43,10 @@ print(len(df_cases))
 #print(df_cases['dx'].value_counts())
 
 
-# df_cases = df_cases.loc[df_cases["emop"] == 1]
+#df_cases = df_cases.loc[df_cases["emop"] == 1]
 # # #df_cases = df_cases.loc[df_cases["emop"]]
 # # ##
-# print(len(df_cases.index))
+#print(len(df_cases.index))
 # print(df_cases["caseid"])
 
 #print(df_cases["dx"].unique())
@@ -70,18 +70,44 @@ print(len(df_cases))
 # print("MIN ", min(obs), case_ids[obs.index(min(obs))])
 
 
-#Figure out number of observations 
-case_ids = []
-obs = []
-null_cases = 0 
-for case in valid_cases:
-    #Read in the case
-    df = pd.read_csv(f"../vital_csvs/{case}_normalized.csv")
-    if df.isnull().values.any():
-        case_ids.append(case)
-    # df = df.loc[df["dis_mortality_risk"] == 1]
-    # print(len(df.index))
+# #Figure out number of observations 
+# case_ids = []
+# obs = []
+# null_cases = 0 
+# for case in valid_cases:
+#     #Read in the case
+#     df = pd.read_csv(f"../vital_csvs/{case}_normalized.csv")
+#     if df.isnull().values.any():
+#         case_ids.append(case)
+#     # df = df.loc[df["dis_mortality_risk"] == 1]
+#     # print(len(df.index))
 
-print(case_ids)
+# print(case_ids)
+
+
+# #Figure out number of gluc and dis risk  
+# case_ids = []
+# obs = []
+# gluc_risk = []
+# for case in valid_cases:
+#     #Read in the case
+#     df = pd.read_csv(f"../vital_csvs/{case}.csv")
+#     df_1 = df.loc[df["dis_mortality_risk"] == 1]
+    
+#     if "gluc_risk" in list(df.columns):
+#         df_2 = df.loc[df["gluc_risk"] == 1]
+#         if len(df_2.index) > 0:
+#             gluc_risk.append(case)
+#     if len(df_1.index) > 0:
+#         obs.append(case)
+
+# print("Gluc risk")
+# print(len(gluc_risk))
+# print(gluc_risk)
+# print("Dis Risk")
+# print(len(obs))
+# print(obs)
+
+
 
 

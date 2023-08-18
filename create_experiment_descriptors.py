@@ -8,7 +8,7 @@ import math
 
 loss_function = "mse"
 num_epochs = 150
-verbose_bool = True
+verbose_bool = False
 #Change here - was 32! 
 batch_size = 128 
 #NEED TO FIX 
@@ -174,14 +174,32 @@ def create_predict_lstm_model_object(num_nodes):
             #Don't include output, code will figure it out. 
             "layers": 
                 [
-                    {
+                   {
                         "type": "LSTM",
-                        "num_nodes": num_nodes
+                        "num_nodes": round(num_nodes*6),
+                        "return_sequences": True,
                     },
                     {
                         "type": "Dropout",
                         "percent": 0.2,
                     },
+                    {
+                        "type": "LSTM",
+                        "num_nodes": round(num_nodes*4),
+                        "return_sequences": True,
+                    },
+                    {
+                        "type": "Dropout",
+                        "percent": 0.2,
+                    },
+                    {
+                        "type": "LSTM",
+                        "num_nodes": round(num_nodes, 2)
+                    },
+                    {
+                        "type": "Dropout",
+                        "percent": 0.2,
+                    }
                 ],
             "final_activation": "sigmoid",
             "loss": loss_function,

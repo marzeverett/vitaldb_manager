@@ -17,6 +17,8 @@ phase_dict = {
     "test": False,
     "retrain": False,
     "predict_type": ["emop"],
+    #"predict_type": ["dis_mortality_risk"],
+
     "building_on_phase": False,
     "retrain_dict": {
         "prev_delete_stream": "clinical",
@@ -34,6 +36,7 @@ phase_dict = {
 
 #run_experiments.test_phase_experiments(phase_dict, letters)
 run_experiments.run_phase_experiments(phase_dict, letters)
+print("Finished!")
 
 # #Regular
 # phase_dict = {

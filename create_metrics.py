@@ -235,7 +235,11 @@ def save_to_main_csv(dataset_descriptor, dataset_result, experiment_descriptor, 
     metrics = experiment_result["model_history"]
     num_epochs = len(metrics["loss"])
     dict_2["num_epochs"] = num_epochs
-   
+    #Changes here - going to require metric changes
+    x_shape = dataset_result['x'].shape
+    y_shape = dataset_result['y'].shape
+    dict_2['input_size'] = x_shape[-1]
+    dict_2['output_size'] = y_shape[-1]   
     path_name = "generated_files/experiments/"+dataset_descriptor["phase_metrics"]+"main_metrics.csv"
     df = pd.DataFrame.from_dict([dict_2])
     #Change header back to false

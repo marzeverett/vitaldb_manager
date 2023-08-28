@@ -8,6 +8,9 @@ import math
 
 loss_function = "mse"
 num_epochs = 150
+num_epochs_predict = 50
+#CHANGE HERE - DELETE
+#num_epochs = 3
 verbose_bool = False
 #Change here - was 32! 
 batch_size = 128 
@@ -176,7 +179,7 @@ def create_predict_lstm_model_object(num_nodes):
                 [
                    {
                         "type": "LSTM",
-                        "num_nodes": round(num_nodes*6),
+                        "num_nodes": round(num_nodes*3),
                         "return_sequences": True,
                     },
                     {
@@ -185,7 +188,7 @@ def create_predict_lstm_model_object(num_nodes):
                     },
                     {
                         "type": "LSTM",
-                        "num_nodes": round(num_nodes*4),
+                        "num_nodes": round(num_nodes*2),
                         "return_sequences": True,
                     },
                     {
@@ -194,7 +197,7 @@ def create_predict_lstm_model_object(num_nodes):
                     },
                     {
                         "type": "LSTM",
-                        "num_nodes": round(num_nodes, 2)
+                        "num_nodes": round(num_nodes, 1)
                     },
                     {
                         "type": "Dropout",
@@ -205,7 +208,7 @@ def create_predict_lstm_model_object(num_nodes):
             "loss": loss_function,
             "optimizer": "adam",
             "batch_size": batch_size,
-            "epochs": num_epochs,
+            "epochs": num_epochs_predict,
             "test_split": 0.1,
             "validation_split": 0.2,
             "use_multiprocessing": True,

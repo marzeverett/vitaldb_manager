@@ -8,9 +8,9 @@ import math
 
 loss_function = "mse"
 num_epochs = 150
-#num_epochs_predict = 50
+num_epochs_predict = 50
 #CHANGE HERE - DELETE
-num_epochs_predict = 3
+#num_epochs_predict = 3
 verbose_bool = False
 #Change here - was 32! 
 batch_size = 128 
@@ -255,7 +255,6 @@ def create_basic_ae_model_object(num_nodes):
         "verbose": verbose_bool,
     }
     return model 
-
 
 
 

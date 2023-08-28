@@ -409,6 +409,7 @@ def fit_model(model, prepared_dataset, experiment_object):
         use_multiprocessing = model_def["use_multiprocessing"]
 
     start_time = time.time()
+    print(f"Training model for {epochs} epochs")
     #Actually train it 
     history = model.fit(
         x_vect, 

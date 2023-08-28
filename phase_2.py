@@ -4,7 +4,9 @@ import run_experiments
 
 
 #Actual letters we will use!!! 
-letters = ['A', 'C', 'E', 'F', 'G', 'S', 'T', 'AC', 'AD']
+#letters = ['A', 'C', 'E', 'F', 'G', 'S', 'T', 'AC', 'AD']
+#Minus AEs - we can use from previous I believe. 
+letters = ['A', 'C', 'F', 'G', 'T', 'AD']
 
 phase_dict = {
     "phase_name": "2",
@@ -19,7 +21,7 @@ phase_dict = {
     "predict_type": ["emop"],
     #"predict_type": ["dis_mortality_risk"],
 
-    "building_on_phase": False,
+    "building_on_phase": "1",
     "retrain_dict": {
         "prev_delete_stream": "clinical",
         "retrain_from_phase": "4",

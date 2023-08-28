@@ -442,7 +442,8 @@ def evaluate_model(model, prepared_dataset, experiment_object):
         x_vect = prepared_dataset["x"]
         y_vect = prepared_dataset["y"]
 
-    final_metrics = model.evaluate(x=x_vect, y=y_vect)
+    final_metrics = model.evaluate(x=x_vect, y=y_vect, verbose=0)
+    print("evaluated model")
     metrics_dict = {}
     #Dictionary workaround from here: https://github.com/keras-team/keras/issues/14045
     final_metrics = {name: final_metrics[val] for val, name in enumerate(model.metrics_names)}
@@ -454,11 +455,10 @@ def predict_values(model, prepared_dataset):
     predictions = {} 
     values_to_predict = ["x", "x_train", "x_test"]
     for item in values_to_predict:
-        predictions[item] = model.predict(prepared_dataset[item], verbose=False)
+        predictions[item] = model.predict(prepared_dataset[item], verbose=0)
     return predictions 
 
 def graph_predictions(prepared_dataset, pred_key=None, y_key=None):
-    pass
     if pred_key == None:
         pred_index = "predictions"
     else:
@@ -576,7 +576,7 @@ def experiment_from_experiment_object(dataset_descriptor, prepared_dataset, expe
     #Build the model
     model = build_model(prepared_dataset, experiment_object, dataset_descriptor)
     #Change here 
-    #print(model.summary())
+    print(model.summary())
     history, total_time = fit_model(model, prepared_dataset, experiment_object)
     save_model(model, experiment_object)
     experiment_result = create_experiment_result_object(history, total_time, model, prepared_dataset, experiment_object)

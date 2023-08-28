@@ -44,13 +44,13 @@ cases = {
     251: {"index": 37}
 }
 
-# #CHANGE HERE 
-# #Change here! Need to make normal later 
-# cases = {
-#     #4481: {"index": 0},
-#     3719: {"index": 1},
-#     818: {"index": 14}
-# }
+#CHANGE HERE 
+#Change here! Need to make normal later 
+cases = {
+    #4481: {"index": 0},
+    3719: {"index": 1},
+    818: {"index": 14}
+}
 
 datastreams = {
     "orch": {
@@ -216,12 +216,11 @@ def generate_dataset_descriptor(dataset_descriptor, datastream_index, input_samp
         else:
             dataset_descriptor["output_fields"] = [dataset_descriptor["predict_type"]]
     
-    #Right here -- can add input clinical data to input fields
-    #If it's not an autoencoder 
-    #Just a try 
-    #CHANGE is here 
+    #Right here -- can add input clinical data to input fields, ONLY for regression
+    #If it's not an autoencoder AND not prediction 
     if dataset_descriptor["target_model"] != "ae":
-        dataset_descriptor["input_fields"] = dataset_descriptor["input_fields"]+clinical_fields
+        if dataset_descriptor["task_type"] != "prediction":
+            dataset_descriptor["input_fields"] = dataset_descriptor["input_fields"]+clinical_fields
 
     #These depend on ae_synthesis, prev phase, or retrain
     this_letter = dataset_descriptor['letter']

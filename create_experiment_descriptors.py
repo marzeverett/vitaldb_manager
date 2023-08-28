@@ -8,9 +8,9 @@ import math
 
 loss_function = "mse"
 num_epochs = 150
-num_epochs_predict = 50
+#num_epochs_predict = 50
 #CHANGE HERE - DELETE
-#num_epochs = 3
+num_epochs_predict = 3
 verbose_bool = False
 #Change here - was 32! 
 batch_size = 128 
@@ -358,63 +358,3 @@ def create_experiment_descriptor(scaling_factor, dataset_descriptor, dataset_res
 
 
 
-# #NEED TO FIX 
-# def return_base_lstm_model(num_nodes):
-#     model = {
-#             "kind": "LSTM",
-#             "model_type": "Sequential",
-#             #Don't include input, code will figure it out. 
-#             #Don't include output, code will figure it out. 
-#             "layers": 
-#                 [
-#                     {
-#                         "type": "LSTM",
-#                         #Placeholder
-#                         "num_nodes": num_nodes,
-#                     },
-#                     {
-#                         "type": "Dropout",
-#                         "percent": 0.2,
-#                     },
-#                 ],
-#             "final_activation": "relu",
-#             "loss": loss_function,
-#             "optimizer": "adam",
-#             "batch_size": 32,
-#             "epochs": num_epochs,
-#             "test_split": 0.1,
-#             "validation_split": 0.2,
-#             "use_multiprocessing": True,
-#             "metrics": ["mse", "mape", "mae"],
-#             "verbose": verbose_bool,
-#         }
-#     return model
-
-
-# def create_basic_ae_model_object(num_nodes):
-#     model = {
-#         "kind": "AE",
-#         "model_type": "Sequential",
-#         "layers": 
-#             [
-#                 {
-#                     "type": "Dense",
-#                     "num_nodes": num_nodes,
-#                     "activation": "relu",
-#                     "name": "latent_space"
-#                 },
-#             ],
-#         "final_activation": "relu",
-#         "loss": loss_function,
-#         #"loss_function": "mean_square_error",
-#         "optimizer": "adam",
-#         "batch_size": 32,
-#         "epochs": num_epochs,
-#         "test_split": 0.1,
-#         "validation_split": 0.2,
-#         "use_multiprocessing": True,
-#         #"metrics": ["mse"]
-#         "metrics": ["mse"],
-#         "verbose": verbose_bool,
-#     }
-#     return model 

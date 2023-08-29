@@ -45,21 +45,22 @@ def run_phase_experiments(phase_dict, letters):
         #print(f"{len(dataset_descriptors_list)} number of descriptors generated")
         for single_dataset_descriptor in dataset_descriptors_list:
             #create a dataset result
+            dataset_result = {}
             dataset_result = create_dataset_library.create_dataset_from_dataset_descriptor(single_dataset_descriptor)
             #Save the descriptor and result into the correct folder
             save_descriptor_and_result(single_dataset_descriptor, dataset_result)
             #For each scaling factor (experimental model modification) in a given dataset descriptor:
             for scaling_factor in single_dataset_descriptor["scaling_factors"]:
                 experiment_descriptor = {}
-                dataset_result = {}
                 experiment_object = {}
                 experiment_result = {}
+                dataset_result_curr = dataset_result.copy()
                 #We create that experiment descriptor 
-                experiment_descriptor = create_experiment_descriptors.create_experiment_descriptor(scaling_factor, single_dataset_descriptor, dataset_result)
+                experiment_descriptor = create_experiment_descriptors.create_experiment_descriptor(scaling_factor, single_dataset_descriptor, dataset_result_curr)
                 #Run the experiment 
-                single_dataset_descriptor, dataset_result, experiment_object, experiment_result = create_model.experiment_from_experiment_object(single_dataset_descriptor, dataset_result, experiment_descriptor)
+                single_dataset_descriptor, dataset_result_curr, experiment_object, experiment_result = create_model.experiment_from_experiment_object(single_dataset_descriptor, dataset_result_curr, experiment_descriptor)
                 #Create the metrics 
-                create_metrics.visualize_and_analyze(single_dataset_descriptor, dataset_result, experiment_descriptor, experiment_result)
+                create_metrics.visualize_and_analyze(single_dataset_descriptor, dataset_result_curr, experiment_descriptor, experiment_result)
   
 
 #Run test - basically same as above, but only one model is run. 

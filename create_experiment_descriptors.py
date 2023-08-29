@@ -215,8 +215,8 @@ def create_predict_lstm_model_object(num_nodes):
             "use_multiprocessing": True,
             "metrics": ['mse', 'BinaryAccuracy', 'Precision', 'Recall', 
         'TruePositives', 'TrueNegatives','FalsePositives', 'FalseNegatives'],
-            #"verbose": verbose_bool,
-            "verbose": True,
+            "verbose": verbose_bool,
+            #"verbose": True,
         }
     return model 
 

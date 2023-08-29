@@ -223,22 +223,26 @@ def save_to_csv(experiment_descriptor, experiment_result):
 
 #Probably need to change this also 
 def save_to_main_csv(dataset_descriptor, dataset_result, experiment_descriptor, experiment_result):
-    dict_1 = experiment_result["test_metrics"]
-    dict_2 = dataset_descriptor["dataset_class"]
+    dict_1 = {}
+    dict_2 = {}
+    dict_1 = experiment_result["test_metrics"].copy()
+    dict_2 = dataset_descriptor["dataset_class"].copy()
     dict_2.update(dict_1)
     dict_2["dataset_size"] = len(dataset_result["x"])
     dict_2["training_time"] = experiment_result["training_time"]
     dict_2["experiment_name"] = experiment_descriptor["experiment_name"]
     dict_2["dataset_name"] = dataset_descriptor["dataset_name"]
    
-    model_descriptor = experiment_descriptor["model"]
-    metrics = experiment_result["model_history"]
+    model_descriptor = experiment_descriptor["model"].copy()
+    metrics = experiment_result["model_history"].copy()
     num_epochs = len(metrics["loss"])
     dict_2["num_epochs"] = num_epochs
     #Changes here - going to require metric changes
     x_shape = dataset_result['x'].shape
     y_shape = dataset_result['y'].shape
     dict_2['input_size'] = x_shape[-1]
+    print(x_shape[-1])
+    print(y_shape[-1])
     dict_2['output_size'] = y_shape[-1]
     #End of change    
     path_name = "generated_files/experiments/"+dataset_descriptor["phase_metrics"]+"main_metrics.csv"

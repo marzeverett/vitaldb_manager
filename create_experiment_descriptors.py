@@ -8,12 +8,13 @@ import math
 
 loss_function = "mse"
 num_epochs = 150
-num_epochs_predict = 50
+num_epochs_predict = 35
 #CHANGE HERE - DELETE
 #num_epochs_predict = 3
 verbose_bool = False
 #Change here - was 32! 
 batch_size = 128 
+predict_test_split = 0.2 
 #NEED TO FIX 
 def return_base_lstm_model(num_nodes):
     model = {
@@ -209,7 +210,7 @@ def create_predict_lstm_model_object(num_nodes):
             "optimizer": "adam",
             "batch_size": batch_size,
             "epochs": num_epochs_predict,
-            "test_split": 0.1,
+            "test_split": predict_test_split,
             "validation_split": 0.2,
             "use_multiprocessing": True,
             "metrics": ['mse', 'BinaryAccuracy', 'Precision', 'Recall', 

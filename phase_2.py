@@ -1,8 +1,6 @@
 import json 
 import run_experiments
 
-
-
 #Actual letters we will use!!! 
 #letters = ['A', 'C', 'E', 'F', 'G', 'S', 'T', 'AC', 'AD']
 #Minus AEs - we can use from previous I believe. 

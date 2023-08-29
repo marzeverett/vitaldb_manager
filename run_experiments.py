@@ -52,7 +52,7 @@ def run_phase_experiments(phase_dict, letters):
             #For each scaling factor (experimental model modification) in a given dataset descriptor:
             for scaling_factor in single_dataset_descriptor["scaling_factors"]:
                 dataset_result_curr = dataset_result.copy()
-                print(dataset_result_curr)
+                #print(dataset_result_curr)
                 #We create that experiment descriptor 
                 experiment_descriptor = create_experiment_descriptors.create_experiment_descriptor(scaling_factor, single_dataset_descriptor, dataset_result_curr)
                 #Run the experiment 

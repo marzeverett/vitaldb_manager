@@ -99,6 +99,8 @@ def load_in_datasets(dataset_descriptor):
 
 #Slice into our time intervals 
 def time_slice(dataset_descriptor, x_dataset, y_dataset, x_key_dataset, y_key_dataset):
+    #increment_amount = 1
+    increment_amount = 30 
     #Get sampling data 
     input_samples = dataset_descriptor["input_samples"]
     output_samples = dataset_descriptor["output_samples"]
@@ -127,10 +129,10 @@ def time_slice(dataset_descriptor, x_dataset, y_dataset, x_key_dataset, y_key_da
         x_key_seq.append(x_key_array)
         y_key_seq.append(y_key_array)
         #Increment
-        x_start = x_start+1
-        x_end = x_end+1
-        y_start = y_start+1
-        y_end = y_end+1
+        x_start = x_start+increment_amount
+        x_end = x_end+increment_amount
+        y_start = y_start+increment_amount
+        y_end = y_end+increment_amount
     #Finally, convert to np array anew
     x_seq = np.array(x_seq)
     y_seq = np.array(y_seq)
@@ -174,6 +176,12 @@ def create_dataset_from_dataset_descriptor(dataset_descriptor):
         #Time slice it if the target is LSTM
         if dataset_descriptor["target_model"] == "lstm":
             x_dataset, y_dataset, x_key_dataset, y_key_dataset = time_slice(dataset_descriptor, x_dataset, y_dataset, x_key_dataset, y_key_dataset)
+        else:
+            #CHANGE HERE!
+            x_dataset = x_dataset[::30]
+            y_dataset = y_dataset[::30]
+            x_key_dataset = x_key_dataset[::30]
+            y_key_dataset = y_key_dataset[::30]
 
         #Append to the full list - this is a but ugly, but otherwise functional
         #X

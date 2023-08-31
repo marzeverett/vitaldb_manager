@@ -56,7 +56,7 @@ loss_dict = {
     "FalseNegatives":  tf.keras.metrics.FalseNegatives()
 }
 
-
+#CHANGE is here! 
 def split_training_test(prepared_dataset, experiment_object):
     model_def = experiment_object["model"]
     if "test_split" in list(model_def.keys()):
@@ -66,10 +66,16 @@ def split_training_test(prepared_dataset, experiment_object):
     random_state=None
     if "random_state" in list(model_def.keys()):
         random_state = random_state
+    # x_train, x_test, y_train, y_test, x_train_key, x_test_key, y_train_key, y_test_key = train_test_split(
+    #     prepared_dataset["x"], prepared_dataset["y"], prepared_dataset["x_key"], prepared_dataset["y_key"],
+    #     test_size=test_split,
+    #     random_state=random_state
+    # )
+
     x_train, x_test, y_train, y_test, x_train_key, x_test_key, y_train_key, y_test_key = train_test_split(
         prepared_dataset["x"], prepared_dataset["y"], prepared_dataset["x_key"], prepared_dataset["y_key"],
         test_size=test_split,
-        random_state=random_state
+        shuffle=False
     )
     prepared_dataset["x_train"] = x_train
     prepared_dataset["x_test"] = x_test

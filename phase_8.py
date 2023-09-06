@@ -4,10 +4,10 @@ import run_experiments
 #Actual letters we will use!!! 
 #letters = ['A', 'C', 'E', 'F', 'G', 'S', 'T', 'AC', 'AD']
 #Minus AEs - we can use from previous I believe. 
-letters = ['A', 'C', 'F', 'G', 'T', 'AD']
+letters = ['G', 'T']
 
 phase_dict = {
-    "phase_name": "3",
+    "phase_name": "8",
     "phase_path_start": "generated_files/",
     "delete_stream": False,
     "task_type": "prediction",
@@ -15,12 +15,14 @@ phase_dict = {
     "input_samples": [30],
     "output_samples": [10],
     "test": False,
-    "retrain": False,
-    "predict_type": ["dis_mortality_risk"],
-    "building_on_phase": "1",
+    "retrain": True,
+    #MAY CHANGE
+    "predict_type": ["emop"],
+    #"predict_type": ["dis_mortality_risk"],
+    "building_on_phase": "7",
     "retrain_dict": {
-        "prev_delete_stream": "clinical",
-        "retrain_from_phase": "4",
+        "prev_delete_stream": "orch",
+        "retrain_from_phase": "5",
         "separation_scheme": "ds",
         "retrained_letters": ["E"],
     },

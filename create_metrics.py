@@ -226,6 +226,8 @@ def save_to_main_csv(dataset_descriptor, dataset_result, experiment_descriptor, 
     dict_1 = {}
     dict_2 = {}
     dict_1 = experiment_result["test_metrics"].copy()
+    #CHANGE - just checking 
+    print(dict_1)
     dict_2 = dataset_descriptor["dataset_class"].copy()
     dict_2.update(dict_1)
     if dataset_descriptor["task_type"] == "prediction":

@@ -179,8 +179,8 @@ def get_ae_paths(dataset_descriptor, using_datastreams):
                     else:
                         new_use_phase = dataset_descriptor["phase_name"]
                         if "sub_ae_phase" in list(dataset_descriptor["retrain_dict"].keys()):
-                            if dataset_descriptor["retrain_dict"]["sub_ae"] != False:
-                                new_use_phase = dataset_descriptor["retrain_dict"]["sub_ae"]
+                            if dataset_descriptor["retrain_dict"]["sub_ae_phase"] != False:
+                                new_use_phase = dataset_descriptor["retrain_dict"]["sub_ae_phase"]
                         
 
             #Make the path, swapping out the datastream scheme 

@@ -172,7 +172,7 @@ def get_ae_paths(dataset_descriptor, using_datastreams):
                 if dataset_descriptor["ae_letter"] in dataset_descriptor["retrain_dict"]["retrained_letters"]:
                     if dataset_descriptor["ds_combo"] != synth_datastream_index:
                         #This uses the old phase 
-                        new_use_phase = dataset_descriptor["retrain_from_phase"]
+                        new_use_phase = dataset_descriptor["retrain_dict"]["retrain_from_phase"]
                     #If this is the right letter AND datastream, we are using the retrained letter 
                     else:
                         new_use_phase = dataset_descriptor["phase_name"]

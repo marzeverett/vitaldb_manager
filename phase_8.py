@@ -19,8 +19,9 @@ phase_dict = {
     #MAY CHANGE
     "predict_type": ["emop"],
     #"predict_type": ["dis_mortality_risk"],
-    "building_on_phase": "7",
+    "building_on_phase": "5",
     "retrain_dict": {
+        "sub_ae_phase": "7",
         "prev_delete_stream": "orch",
         "retrain_from_phase": "5",
         "separation_scheme": "ds",

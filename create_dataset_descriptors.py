@@ -178,6 +178,10 @@ def get_ae_paths(dataset_descriptor, using_datastreams):
                     #If this is the right letter AND datastream, we are using the retrained letter 
                     else:
                         new_use_phase = dataset_descriptor["phase_name"]
+                        if "sub_ae_phase" in list(dataset_descriptor["retrain_dict"].keys()):
+                            if dataset_descriptor["retrain_dict"]["sub_ae"] != False:
+                                new_use_phase = dataset_descriptor["retrain_dict"]["sub_ae"]
+                        
 
             #Make the path, swapping out the datastream scheme 
             ae_dict = create_ae_path_dict(dataset_descriptor, new_use_phase, use_ds_scheme, synth_datastream_index)

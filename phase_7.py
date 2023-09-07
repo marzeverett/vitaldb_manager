@@ -3,8 +3,8 @@ import run_experiments
 
 
 #Actual letters we will use!!! 
-letters = ['E', 'G', 'S', 'T']
-#letters = ['F', 'G', 'S', 'T', 'AC', 'AD']
+#letters = ['E', 'G', 'S', 'T']
+letters = ['G', 'S', 'T']
 
 phase_dict = {
     "phase_name": "7",

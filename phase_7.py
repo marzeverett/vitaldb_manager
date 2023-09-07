@@ -17,7 +17,7 @@ phase_dict = {
     "test": False,
     "retrain": True,
     "predict_type": None,
-    "building_on_phase": False,
+    "building_on_phase": "5",
     "retrain_dict": {
         "prev_delete_stream": "orch",
         "retrain_from_phase": "5",

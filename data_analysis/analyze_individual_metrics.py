@@ -75,7 +75,6 @@ col_names = {
             "outputs"
         ],
     "prediction": [
-        "version",
             "phase",
             "letter",
             "model_group",

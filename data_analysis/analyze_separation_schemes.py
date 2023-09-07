@@ -71,7 +71,6 @@ col_names = {
             "outputs"
         ],
     "prediction": [
-        "version",
             "phase",
             "letter",
             "model_group",
@@ -100,7 +99,6 @@ col_names = {
             "f1"
     ],
 }
-
 
 
 def return_aggregate_metrics_dict():

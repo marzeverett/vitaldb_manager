@@ -71,7 +71,6 @@ col_names = {
             "outputs"
         ],
     "prediction": [
-        "version",
             "phase",
             "letter",
             "model_group",
@@ -577,13 +576,13 @@ def compare_stdev(phase, prediction=False):
     save_path = f"{phase}_analysis/compare_by_stdev.csv"
     final_df.to_csv(save_path)
 
-phase = "5"
-total_outputs = 13
-prediction = False
-#get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
-#get_best_weighted_mean_per_scheme(phase, prediction=prediction)
-#get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)
-#get_more_useful_slate_info(phase, prediction=prediction)
-#get_model_arch_comparison(phase, prediction=prediction)
+# phase = "1"
+# total_outputs = 13
+# prediction = False
+# get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
+# get_best_weighted_mean_per_scheme(phase, prediction=prediction)
+# get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)
+# get_more_useful_slate_info(phase, prediction=prediction)
+# get_model_arch_comparison(phase, prediction=prediction)
 ##compare_stdev(phase, prediction=prediction)
 

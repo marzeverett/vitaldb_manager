@@ -67,7 +67,6 @@ col_names = {
             "outputs"
         ],
     "prediction": [
-        "version",
             "phase",
             "letter",
             "model_group",
@@ -340,16 +339,18 @@ def run_basic_analysis(phases):
 
 def adjust_prediction_models(phases):
     read_in = [
-            "version",
-            "location_scheme",
+            "phase",
+            "letter",
+            "model_group",
             "datastream_scheme",
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
             "mse",
-            "f1",
+            "binary_accuracy",
             "precision",
             "recall",
             "true_positives",
@@ -368,6 +369,7 @@ def adjust_prediction_models(phases):
         for letter in groups["lstm"]:
             try:
                 df = pd.read_csv(f"main_metrics/phase_{phase}/{phase}_{letter}main_metrics.csv", names=read_in)
+                #print((df["precision"]+df["recall"]))
                 df = df.assign(f1=(2*df["precision"]*df["recall"])/(df["precision"]+df["recall"]))
                 #Save it back 
                 df.to_csv(f"main_metrics/phase_{phase}/{phase}_{letter}main_metrics.csv")
@@ -377,14 +379,14 @@ def adjust_prediction_models(phases):
 
 #ADJUSTMENT - DO FIRST 
 #DONT ACCIDENTALLY DO ON A NON-PREDICTION MODEL!
-# phase = ["16"]
-# adjust_prediction_models(phase)
+phase = ["3"]
+adjust_prediction_models(phase)
 
 
 
-# # # # # #But we need to find a per-separation scheme, per-network ad-hoc analysis 
-phases = ["5"]
-run_basic_analysis(phases)
+# # # # # # #But we need to find a per-separation scheme, per-network ad-hoc analysis 
+# phases = ["1"]
+# run_basic_analysis(phases)
 
 # # # ##### For inspecting individual graphs! 
 # phase = "14"

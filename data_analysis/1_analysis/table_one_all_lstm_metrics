@@ -1,7 +1,7 @@
 Metric,C,F
-mean_mse,0.00082,0.00035
+mean_mse,0.00081,0.00109
 min_mse,0.00034,0.0002
-max_mse,0.00139,0.00048
-stdev_mse,0.00036,0.00011
-mean_training_time,757.18874,1607.33168
-mean_num_epochs,49.0,61.11111
+max_mse,0.00139,0.00698
+stdev_mse,0.00041,0.00221
+mean_training_time,1158.04909,170.96165
+mean_num_epochs,47.77778,54.88889

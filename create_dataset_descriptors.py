@@ -263,11 +263,11 @@ def break_out_descriptors(dataset_descriptor):
         new_descriptor = generate_dataset_descriptor(dataset_descriptor.copy(), datastream_index, input_sample, output_sample, using_datastreams)
         #Here is where we check for retrain!!
         if new_descriptor["retrain"]:
-            retrain_dict = dataset_descriptor["retrain_dict"]
+            retrain_dict = new_descriptor["retrain_dict"]
             #If it's in the letters, only add if it's on the appropriate stream
             if new_descriptor["letter"] in retrain_dict["retrained_letters"]:
                 prev_index = using_datastreams[retrain_dict["prev_delete_stream"]]["index"]
-                if dataset_descriptor["ds_combo"] == prev_index:
+                if new_descriptor["ds_combo"] == prev_index:
                     descriptors_list.append(new_descriptor)
         #If it's not a retrain, add it
         else:
@@ -280,8 +280,6 @@ def break_out_descriptors(dataset_descriptor):
 def create_dataset_descriptor_list_from_parameter_dict(parameter_dict):
     dataset_descriptor = return_default_dataset_descriptor()
     dataset_descriptor.update(parameter_dict)
-    #Sanity Check, change
-    print(dataset_descriptor)
     dataset_descriptor_list = break_out_descriptors(dataset_descriptor)
     return dataset_descriptor_list
     

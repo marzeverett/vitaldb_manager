@@ -32,9 +32,11 @@ groups = {
 
 col_names = {
     "lstm": [
-            "version",
-            "location_scheme",
+            "phase",
+            "letter",
+            "model_group",
             "datastream_scheme",
+            "location_scheme"
             "l_combo",
             "ds_combo",
             "input_days",
@@ -47,13 +49,17 @@ col_names = {
             "training_time",
             "experiment_name",
             "dataset_name",
-            "epochs"
+            "epochs",
+            "inputs",
+            "outputs"
     ],
 
     "ae": [
-            "version",
-            "location_scheme",
+            "phase",
+            "letter",
+            "model_group",
             "datastream_scheme",
+            "location_scheme"
             "l_combo",
             "ds_combo",
             "input_days",
@@ -64,8 +70,39 @@ col_names = {
             "training_time",
             "experiment_name",
             "dataset_name",
-            "epochs"
-        ]
+            "epochs",
+            "inputs",
+            "outputs"
+        ],
+    "prediction": [
+        "version",
+            "phase",
+            "letter",
+            "model_group",
+            "datastream_scheme",
+            "location_scheme"
+            "l_combo",
+            "ds_combo",
+            "input_days",
+            "output_days",
+            "loss",
+            "mse",
+            "binary_accuracy",
+            "precision",
+            "recall",
+            "true_positives",
+            "true_negatives",
+            "false_positives",
+            "false_negatives",
+            "dataset_size",
+            "training_time",
+            "experiment_name",
+            "dataset_name",
+            "epochs",
+            "inputs",
+            "outputs",
+            "f1"
+    ],
 }
 
 

@@ -17,17 +17,18 @@ import analyze_separation_schemes
 
 
 groups = {
-    "ae": ["E", "H", "L", "S", "U", "X", "Z", "AC"],
-    "lstm": ["A", "B", "C", "D", "F", "G", "I", "J",
-                "M", "N", "Q", "T", "V", "W", "Y", "AA", "AB", "AD", "AF"]
+    "ae": ["E", "S", "AC"],
+    "lstm": ["A","C", "F", "G", "T", "AD"]
 
 }
 
 col_names = {
     "lstm": [
-            "version",
-            "location_scheme",
+            "phase",
+            "letter",
+            "model_group",
             "datastream_scheme",
+            "location_scheme"
             "l_combo",
             "ds_combo",
             "input_days",
@@ -40,15 +41,17 @@ col_names = {
             "training_time",
             "experiment_name",
             "dataset_name",
+            "epochs",
             "inputs",
-            "outputs",
-            "epochs"
+            "outputs"
     ],
 
     "ae": [
-            "version",
-            "location_scheme",
+            "phase",
+            "letter",
+            "model_group",
             "datastream_scheme",
+            "location_scheme"
             "l_combo",
             "ds_combo",
             "input_days",
@@ -65,8 +68,11 @@ col_names = {
         ],
     "prediction": [
         "version",
-            "location_scheme",
+            "phase",
+            "letter",
+            "model_group",
             "datastream_scheme",
+            "location_scheme"
             "l_combo",
             "ds_combo",
             "input_days",
@@ -131,23 +137,21 @@ aggregate_metrics = {
     }
 }
 
-prediction_slates = ["10", "11", "12", "13", "14"]
+prediction_slates = ["2", "4", "6", "8"]
 
-network_1_letters = ["A", "B", "C", "D"]
-network_2_letters = ["E", "F", "G", "H", "I", "J", "L", "M", "N", "Q", "AF", "AG", "AJ"]
-network_3_letters = ["S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB"]
-network_4_letters = ["E", "F", "L", "M", "AC", "AD", "AF"]
+network_1_letters = ["A", "C"]
+network_2_letters = ["E", "F", "G",]
+network_3_letters = ["S", "T"]
+network_4_letters = ["AC", "AD"]
 
 networks_list = [network_1_letters, network_2_letters, network_3_letters, network_4_letters]
 
 
-one_one_letters = ["D", "H", "I"]
-one_all_letters = ["C", "E", "F", "Q", "Z", "AA"]
-all_one_letters = ["B", "J", "L", "M", "U", "V", "AF"]
-all_all_letters = ["A", "G", "N", "S", "T", "W", "X", "Y", "AB", "AC", "AD", "AG", "AJ"]
+one_all_letters = ["C", "E", "F"]
+all_all_letters = ["A", "G", "S", "T", "AC", "AD"]
 
 separation_scheme_list = [one_one_letters, one_all_letters, all_one_letters, all_all_letters]
-separation_scheme_kinds = ["one_one", "one_all", "all_one", "all_all" ]
+separation_scheme_kinds = ["one_all", "all_all" ]
 
 
 
@@ -371,9 +375,13 @@ def adjust_prediction_models(phases):
                 print(f"No metrics for {phase} {letter}")
 
 
+#ADJUSTMENT - DO FIRST 
 #DONT ACCIDENTALLY DO ON A NON-PREDICTION MODEL!
 # phase = ["16"]
 # adjust_prediction_models(phase)
+
+
+
 # # # # # #But we need to find a per-separation scheme, per-network ad-hoc analysis 
 # phases = ["16"]
 # run_basic_analysis(phases)
@@ -384,14 +392,3 @@ def adjust_prediction_models(phases):
 # prediction = True
 # get_letter_graphs(phase, letter, prediction=prediction)
 
-
-# phase = "2"
-# letters_dict = {
-#     "one_one": "D",
-#     "one_all": "C",
-#     "all_one": "B",
-#     "all_all": "AD"
-# }
-# file_path_start = f"main_metrics/"
-# prediction=False
-# analyze_separation_schemes.get_mean_min_per_organization(letters_dict, phase, file_path_start, "lstm", prediction=prediction)

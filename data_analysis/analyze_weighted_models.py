@@ -28,9 +28,11 @@ groups = {
 
 col_names = {
     "lstm": [
-            "version",
-            "location_scheme",
+            "phase",
+            "letter",
+            "model_group",
             "datastream_scheme",
+            "location_scheme"
             "l_combo",
             "ds_combo",
             "input_days",
@@ -43,12 +45,38 @@ col_names = {
             "training_time",
             "experiment_name",
             "dataset_name",
-            "epochs"
+            "epochs",
+            "inputs",
+            "outputs"
     ],
-    "prediction": [
-            "version",
-            "location_scheme",
+
+    "ae": [
+            "phase",
+            "letter",
+            "model_group",
             "datastream_scheme",
+            "location_scheme"
+            "l_combo",
+            "ds_combo",
+            "input_days",
+            "output_days",
+            "loss",
+            "mse",
+            "dataset_size",
+            "training_time",
+            "experiment_name",
+            "dataset_name",
+            "epochs",
+            "inputs",
+            "outputs"
+        ],
+    "prediction": [
+        "version",
+            "phase",
+            "letter",
+            "model_group",
+            "datastream_scheme",
+            "location_scheme"
             "l_combo",
             "ds_combo",
             "input_days",
@@ -67,24 +95,10 @@ col_names = {
             "experiment_name",
             "dataset_name",
             "epochs",
+            "inputs",
+            "outputs",
             "f1"
     ],
-    "ae": [
-            "version",
-            "location_scheme",
-            "datastream_scheme",
-            "l_combo",
-            "ds_combo",
-            "input_days",
-            "output_days",
-            "loss",
-            "mse",
-            "dataset_size",
-            "training_time",
-            "experiment_name",
-            "dataset_name",
-            "epochs"
-        ]
 }
 
 
@@ -147,7 +161,7 @@ def return_aggregate_metrics_dict():
 
 
 #Calculated the weighted metric 
-def calc_weighted_metric(df, input_output_csv, total_outputs, prediction=False):
+def calc_weighted_metric(df, total_outputs, prediction=False):
     #print(df["dataset_name"])
     #And the mse.
     if prediction:
@@ -156,10 +170,9 @@ def calc_weighted_metric(df, input_output_csv, total_outputs, prediction=False):
         metric = "mse"
 
     new_dataset_name = df["dataset_name"].item()
-    i_o_csv = input_output_csv.loc[input_output_csv["dataset_name"] == new_dataset_name]
     #print(new_dataset_name)
     #print(i_o_csv["output_size"])
-    output_size = i_o_csv["output_size"].item()
+    output_size = df["outputs"].item()
     value_metric = df[metric].item()
     weighting = output_size/total_outputs
     # print("Value Metric", value_metric)
@@ -171,11 +184,10 @@ def calc_weighted_metric(df, input_output_csv, total_outputs, prediction=False):
     return weighted_metric
 
 #This is ONE variation. 
-def load_and_weight(phase, letter, curr_sep_dict, curr_sep_kind, input_var, output_var, exp_var, input_output_csv, total_outputs, prediction=False):
+def load_and_weight(phase, letter, curr_sep_dict, curr_sep_kind, input_var, output_var, exp_var, total_outputs, prediction=False):
     try:
-        location_combo = [*range(0, 16)]
-        datastream_combo = [*range(0, 5)]
-        exp_name = f"{phase}_{letter}_exp{exp_var}"
+        datastream_combo = [*range(1, 4)]
+        exp_name = f"{phase}_{letter}_{exp_var}"
         #Try to load in the whole df for this phase and letter 
         metrics_path = f"main_metrics/phase_{phase}/{phase}_{letter}main_metrics.csv"
         if prediction:
@@ -183,59 +195,25 @@ def load_and_weight(phase, letter, curr_sep_dict, curr_sep_kind, input_var, outp
         else:
             cols = col_names["lstm"]
         whole_df = pd.read_csv(metrics_path, names=cols)
-        # print(whole_df.head())
-        # print(whole_df.columns)
-        # print(whole_df["input_days"])
 
         #Restrict the df to our particular variation
         weighted_mse = 0
         df_restrict = whole_df[(whole_df['input_days']==input_var) & (whole_df['output_days']==output_var) & (whole_df['experiment_name']==exp_name)]
         if curr_sep_kind == "all_all":
             if not df_restrict.empty:
-                weighted_mse = calc_weighted_metric(df_restrict, input_output_csv, total_outputs, prediction=prediction)
+                weighted_mse = calc_weighted_metric(df_restrict,  total_outputs, prediction=prediction)
         elif curr_sep_kind == "one_all":
             weighted_sum = 0 
             num_datastreams = 0
             for ds_index in datastream_combo:
                 new_df = df_restrict[df_restrict['ds_combo']==ds_index]
                 if not new_df.empty:
-                    weighted_sum = weighted_sum + calc_weighted_metric(new_df, input_output_csv, total_outputs, prediction=prediction)
+                    weighted_sum = weighted_sum + calc_weighted_metric(new_df, total_outputs, prediction=prediction)
                     num_datastreams += 1
             weighted_mse = weighted_sum
             if prediction:
                 weighted_mse = weighted_mse/num_datastreams
 
-        elif curr_sep_kind == "all_one": 
-            weighted_sum = 0 
-            num_locations = 0
-            for l_index in location_combo:
-                new_df = df_restrict[df_restrict['l_combo']==l_index]
-                if not new_df.empty:
-                    weighted_sum = weighted_sum + calc_weighted_metric(new_df, input_output_csv, total_outputs, prediction=prediction)
-                    num_locations += 1
-            weighted_mse = weighted_sum
-            if prediction:
-                weighted_mse = weighted_mse/num_locations
-
-        elif curr_sep_kind == "one_one":
-            overall_weighted_sum = 0
-            
-            num_locations = 0
-            for l_index in location_combo:
-                num_datastreams = 0
-                sub_weighted_sum = 0 
-                for ds_index in datastream_combo:
-                    new_df = df_restrict[(df_restrict['l_combo']==l_index) & (df_restrict['ds_combo']==ds_index)]
-                    if not new_df.empty:
-                        sub_weighted_sum = sub_weighted_sum + calc_weighted_metric(new_df, input_output_csv, total_outputs, prediction=prediction)
-                        num_datastreams += 1
-                if prediction and num_datastreams!=0:
-                    sub_weighted_sum = sub_weighted_sum/num_datastreams
-                overall_weighted_sum += sub_weighted_sum
-                num_locations += 1
-            if prediction and num_locations!=0:
-                overall_weighted_sum = overall_weighted_sum/num_locations
-            weighted_mse = overall_weighted_sum
         #Add info to dict
         curr_sep_dict["letter"].append(letter)
         curr_sep_dict["input_days"].append(input_var)
@@ -255,7 +233,6 @@ def get_all_weighted_variations(phase, letter, curr_sep_kind, total_outputs, pre
         "experiment_name": [], 
         "weighted_metric": []
     }
-    input_output_csv = pd.read_csv("inputs_outputs/full_inputs_outputs.csv")
     input_days = [30, 60]
     output_days = [1, 7]
     scaling_factors = [8, 32, 64]
@@ -263,7 +240,7 @@ def get_all_weighted_variations(phase, letter, curr_sep_kind, total_outputs, pre
     for input_var in input_days:
         for output_var in output_days:
             for exp_var in scaling_factors:
-                load_and_weight(phase, letter, variation_dict, curr_sep_kind, input_var, output_var, exp_var, input_output_csv, total_outputs, prediction=prediction)
+                load_and_weight(phase, letter, variation_dict, curr_sep_kind, input_var, output_var, exp_var, total_outputs, prediction=prediction)
     
     #Then save 
     save_folder = f"{phase}_analysis/combo_models/"
@@ -279,17 +256,15 @@ def get_all_weighted_variations(phase, letter, curr_sep_kind, total_outputs, pre
 
 def get_best_weighted_model_per_organization(phase, total_outputs, prediction=False):
     #Letters
-    separate_letters = ['D', 'I']
-    separate_datastreams_all_locations = ["C", "F", "Q", "AA", "AI"]
-    all_datastreams_separate_locations = ["B", "J", "M", "V", "AF"]
-    all_datastreams_all_locations = ["A", "G", "N", "T", "W", "Y", "AB", "AD", "AG", "AJ"]
+    separate_datastreams_all_locations = ["C", "F"]
+    all_datastreams_all_locations = ["A", "G", "T", "AD"]
 
 
     #Alltogether now 
     #separation_schemes = [separate_letters, separate_datastreams_all_locations, all_datastreams_separate_locations, all_datastreams_all_locations]
-    separation_schemes = [all_datastreams_all_locations, separate_datastreams_all_locations, all_datastreams_separate_locations, separate_letters]
+    separation_schemes = [all_datastreams_all_locations, separate_datastreams_all_locations]
     #separation_kinds = ["one_one", "one_all", "all_one", "all_all"]
-    separation_kinds = ["all_all", "one_all", "all_one", "one_one"]
+    separation_kinds = ["all_all", "one_all"]
 
     #For each separation scheme: 
     for i in range(0, len(separation_schemes)):
@@ -309,11 +284,9 @@ def get_best_weighted_model_per_organization(phase, total_outputs, prediction=Fa
 
 def get_best_weighted_model_per_slate_per_scheme(phase, prediction=False):
     #Letters
-    separate_letters = ['D', 'I']
-    separate_datastreams_all_locations = ["C", "F", "Q", "AA", "AI"]
-    all_datastreams_separate_locations = ["B", "J", "M", "V", "AF"]
-    all_datastreams_all_locations = ["A", "G", "N", "T", "W", "Y", "AB", "AD", "AG", "AJ"]
-    separation_schemes = [all_datastreams_all_locations, separate_datastreams_all_locations, all_datastreams_separate_locations, separate_letters]
+    separate_datastreams_all_locations = ["C", "F"]
+    all_datastreams_all_locations = ["A", "G", "T", "AD"]
+    separation_schemes = [all_datastreams_all_locations, separate_datastreams_all_locations]
     final_df = pd.DataFrame()
     if prediction:
         metric = "weighted_metric"
@@ -385,11 +358,9 @@ def get_best_weighted_model_per_slate_per_scheme(phase, prediction=False):
 #Get lowest or highest mean per scheme
 def get_best_weighted_mean_per_scheme(phase, prediction=False):
     #Letters
-    separate_letters = ['D', 'I']
-    separate_datastreams_all_locations = ["C", "F", "Q", "AA", "AI"]
-    all_datastreams_separate_locations = ["B", "J", "M", "V", "AF"]
-    all_datastreams_all_locations = ["A", "G", "N", "T", "W", "Y", "AB", "AD", "AG", "AJ"]
-    separation_schemes = [separate_letters, separate_datastreams_all_locations, all_datastreams_separate_locations, all_datastreams_all_locations]
+    separate_datastreams_all_locations = ["C", "F"]
+    all_datastreams_all_locations = ["A", "G", "T", "AD"]
+    separation_schemes = [separate_datastreams_all_locations, all_datastreams_all_locations]
 
     final_dict = {"letters": [], "metric": []}
     if prediction:
@@ -464,10 +435,8 @@ def get_best_weighted_mean_per_scheme(phase, prediction=False):
 
 def get_more_useful_slate_info(phase, prediction=False):
     #Letters
-    separate_letters = ['D', 'I']
-    separate_datastreams_all_locations = ["C", "F", "Q", "AA", "AI"]
-    all_datastreams_separate_locations = ["B", "J", "M", "V", "AF"]
-    all_datastreams_all_locations = ["A", "G", "N", "T", "W", "Y", "AB", "AD", "AG", "AJ"]
+    separate_datastreams_all_locations = ["C", "F"]
+    all_datastreams_all_locations = ["A", "G", "T", "AD"]
     separation_schemes = [separate_letters, separate_datastreams_all_locations, all_datastreams_separate_locations, all_datastreams_all_locations]
     final_df = pd.DataFrame()
     if prediction:
@@ -518,11 +487,9 @@ def get_more_useful_slate_info(phase, prediction=False):
 
 def get_model_arch_comparison(phase, prediction=False):
     #Letters
-    separate_letters = ['D', 'I']
-    separate_datastreams_all_locations = ["C", "F", "Q", "AA", "AI"]
-    all_datastreams_separate_locations = ["B", "J", "M", "V", "AF"]
-    all_datastreams_all_locations = ["A", "G", "N", "T", "W", "Y", "AB", "AD", "AG", "AJ"]
-    separation_schemes = [separate_letters, separate_datastreams_all_locations, all_datastreams_separate_locations, all_datastreams_all_locations]
+    separate_datastreams_all_locations = ["C", "F"]
+    all_datastreams_all_locations = ["A", "G", "T", "AD"]
+    separation_schemes = [separate_datastreams_all_locations, all_datastreams_all_locations]
     if prediction:
         metric = "f1"
     else:
@@ -541,9 +508,9 @@ def get_model_arch_comparison(phase, prediction=False):
                 else:
                     cols = col_names["lstm"]
                 df = pd.read_csv(df_path, names=cols)
-                exp_8_name = f"{phase}_{letter}_exp8"
-                exp_32_name = f"{phase}_{letter}_exp32"
-                exp_64_name = f"{phase}_{letter}_exp64"
+                exp_8_name = f"{phase}_{letter}_8"
+                exp_32_name = f"{phase}_{letter}_32"
+                exp_64_name = f"{phase}_{letter}_64"
 
                 #Group by experiment name and get the mean metric 
                 df_8 = df[df["experiment_name"] == exp_8_name]
@@ -575,11 +542,9 @@ def get_model_arch_comparison(phase, prediction=False):
 
 def compare_stdev(phase, prediction=False):
     #Letters
-    separate_letters = ['D', 'I']
-    separate_datastreams_all_locations = ["C", "F", "Q", "AA", "AI"]
-    all_datastreams_separate_locations = ["B", "J", "M", "V", "AF"]
-    all_datastreams_all_locations = ["A", "G", "N", "T", "W", "Y", "AB", "AD", "AG", "AJ"]
-    separation_schemes = [separate_letters, separate_datastreams_all_locations, all_datastreams_separate_locations, all_datastreams_all_locations]
+    separate_datastreams_all_locations = ["C", "F"]
+    all_datastreams_all_locations = ["A", "G", "T", "AD"]
+    separation_schemes = [separate_datastreams_all_locations, all_datastreams_all_locations]
     if prediction:
         metric = "f1"
     else:
@@ -598,9 +563,9 @@ def compare_stdev(phase, prediction=False):
                 else:
                     cols = col_names["lstm"]
                 df = pd.read_csv(df_path, names=cols)
-                exp_8_name = f"{phase}_{letter}_exp8"
-                exp_32_name = f"{phase}_{letter}_exp32"
-                exp_64_name = f"{phase}_{letter}_exp64"
+                exp_8_name = f"{phase}_{letter}_8"
+                exp_32_name = f"{phase}_{letter}_32"
+                exp_64_name = f"{phase}_{letter}_64"
 
                 #Group by experiment name and get the mean metric 
                 df_8 = df[df["experiment_name"] == exp_8_name]

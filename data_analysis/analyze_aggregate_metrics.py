@@ -26,9 +26,11 @@ groups = {
 
 col_names = {
     "lstm": [
-            "version",
-            "location_scheme",
+            "phase",
+            "letter",
+            "model_group",
             "datastream_scheme",
+            "location_scheme"
             "l_combo",
             "ds_combo",
             "input_days",
@@ -41,12 +43,38 @@ col_names = {
             "training_time",
             "experiment_name",
             "dataset_name",
-            "epochs"
+            "epochs",
+            "inputs",
+            "outputs"
     ],
+
+    "ae": [
+            "phase",
+            "letter",
+            "model_group",
+            "datastream_scheme",
+            "location_scheme"
+            "l_combo",
+            "ds_combo",
+            "input_days",
+            "output_days",
+            "loss",
+            "mse",
+            "dataset_size",
+            "training_time",
+            "experiment_name",
+            "dataset_name",
+            "epochs",
+            "inputs",
+            "outputs"
+        ],
     "prediction": [
         "version",
-            "location_scheme",
+            "phase",
+            "letter",
+            "model_group",
             "datastream_scheme",
+            "location_scheme"
             "l_combo",
             "ds_combo",
             "input_days",
@@ -65,25 +93,12 @@ col_names = {
             "experiment_name",
             "dataset_name",
             "epochs",
+            "inputs",
+            "outputs",
             "f1"
     ],
-    "ae": [
-            "version",
-            "location_scheme",
-            "datastream_scheme",
-            "l_combo",
-            "ds_combo",
-            "input_days",
-            "output_days",
-            "loss",
-            "mse",
-            "dataset_size",
-            "training_time",
-            "experiment_name",
-            "dataset_name",
-            "epochs"
-        ]
 }
+
 
 
 
@@ -258,17 +273,5 @@ def save_metrics(phase, scheme, file_path, prediction=False):
 
 
 
-# # def get_agg_for_both(file_path, phase, scheme):
-# #     df_dict = read_in_dfs(file_path, phase, df_dict, ingroup="lstm")
-# #     metrics_dict = calc_aggregate_metrics(df_dict, scheme)
-# #     save_results(filename, save_dict)
 
-
-# phase = "4" 
-# file_path = f'main_metrics/phase_{phase}/'
-# scheme = "lstm"
-# #scheme = "ae"
-# #Read 'em in 
-
-# #save_metrics(phase, scheme, file_path)
 

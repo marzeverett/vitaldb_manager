@@ -280,6 +280,8 @@ def break_out_descriptors(dataset_descriptor):
 def create_dataset_descriptor_list_from_parameter_dict(parameter_dict):
     dataset_descriptor = return_default_dataset_descriptor()
     dataset_descriptor.update(parameter_dict)
+    #Sanity Check, change
+    print(dataset_descriptor)
     dataset_descriptor_list = break_out_descriptors(dataset_descriptor)
     return dataset_descriptor_list
     

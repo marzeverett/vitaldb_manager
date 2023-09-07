@@ -269,6 +269,9 @@ def break_out_descriptors(dataset_descriptor):
                 prev_index = using_datastreams[retrain_dict["prev_delete_stream"]]["index"]
                 if new_descriptor["ds_combo"] == prev_index:
                     descriptors_list.append(new_descriptor)
+            #If its not in the retrained letters, go ahead and add it. 
+            else:
+                descriptors_list.append(new_descriptor)
         #If it's not a retrain, add it
         else:
             descriptors_list.append(new_descriptor)

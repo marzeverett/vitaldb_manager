@@ -171,9 +171,6 @@ def get_ae_paths(dataset_descriptor, using_datastreams):
             if dataset_descriptor["retrain"]:
                 retrain_datastream_index = using_datastreams[dataset_descriptor["retrain_dict"]["prev_delete_stream"]]["index"]
                 #Change is here -- keep an eye on. 
-                print(dataset_descriptor["ae_letter"])
-                print(dataset_descriptor["ds_combo"])
-                print(synth_datastream_index)
                 if dataset_descriptor["ae_letter"] in dataset_descriptor["retrain_dict"]["retrained_letters"]:
                     if retrain_datastream_index != synth_datastream_index:
                         #This uses the old phase 

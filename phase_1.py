@@ -7,7 +7,9 @@ import run_experiments
 #'T', 'AC', 'AD']
 #letters = ['F', 'G', 'S', 'T', 'AC', 'AD']
 
-letters = ['AD']
+#letters = ['AD']
+
+letters = ['F']
 
 phase_dict = {
     "phase_name": "1",

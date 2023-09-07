@@ -32,9 +32,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -55,9 +55,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -76,9 +76,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -100,6 +100,7 @@ col_names = {
             "f1"
     ],
 }
+
 
 
 def return_aggregate_metrics_dict():
@@ -334,7 +335,7 @@ def test_letters(kind, letters, file_path_1, phase_1, scheme_1, prediction=False
         for j in range(0, len(labels_list)):
             if labels_list[j] not in list(letters_dict.keys()):
                 letters_dict[labels_list[j]] = []
-            if labels_list[i] != labels_list[j]:
+            if labels_list[i] != labels_list[j]:                
                 col1 = columns_list[i]
                 col2 = columns_list[j]
                 result = stats.wilcoxon(col1, col2)

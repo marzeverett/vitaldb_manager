@@ -32,9 +32,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -55,9 +55,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -76,9 +76,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -100,6 +100,7 @@ col_names = {
             "f1"
     ],
 }
+
 
 
 def return_aggregate_metrics_dict():
@@ -233,8 +234,8 @@ def get_all_weighted_variations(phase, letter, curr_sep_kind, total_outputs, pre
         "experiment_name": [], 
         "weighted_metric": []
     }
-    input_days = [30, 60]
-    output_days = [1, 7]
+    input_days = [30]
+    output_days = [10]
     scaling_factors = [8, 32, 64]
     
     for input_var in input_days:
@@ -275,10 +276,7 @@ def get_best_weighted_model_per_organization(phase, total_outputs, prediction=Fa
 
     
 
-# phase = "16"
-# total_outputs = 209
-# prediction = False
-# get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
+
     
 
 
@@ -351,9 +349,6 @@ def get_best_weighted_model_per_slate_per_scheme(phase, prediction=False):
     #For each separation scheme
     
 
-# phase = "16"
-# prediction = False
-# get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)
 
 #Get lowest or highest mean per scheme
 def get_best_weighted_mean_per_scheme(phase, prediction=False):
@@ -420,16 +415,12 @@ def get_best_weighted_mean_per_scheme(phase, prediction=False):
         print(scheme_min)
        
         #print(final_df.head())
-
     final_df = pd.DataFrame(final_dict)
     save_path = f"{phase}_analysis/mean_overall_weighted_models.csv"
     final_df.to_csv(save_path)
 
     #For each separation scheme
 
-# phase = "10"
-# prediction = False
-# get_best_weighted_mean_per_scheme(phase, prediction=prediction)
 
 
 
@@ -437,7 +428,7 @@ def get_more_useful_slate_info(phase, prediction=False):
     #Letters
     separate_datastreams_all_locations = ["C", "F"]
     all_datastreams_all_locations = ["A", "G", "T", "AD"]
-    separation_schemes = [separate_letters, separate_datastreams_all_locations, all_datastreams_separate_locations, all_datastreams_all_locations]
+    separation_schemes = [separate_datastreams_all_locations, all_datastreams_all_locations]
     final_df = pd.DataFrame()
     if prediction:
         metric = "weighted_metric"
@@ -479,9 +470,6 @@ def get_more_useful_slate_info(phase, prediction=False):
     #For each separation scheme
     
 
-# phase = "16"
-# prediction = False
-# get_more_useful_slate_info(phase, prediction=prediction)
 
 
 
@@ -535,9 +523,6 @@ def get_model_arch_comparison(phase, prediction=False):
     save_path = f"{phase}_analysis/compare_by_nodes.csv"
     final_df.to_csv(save_path)
 
-# phase = "16"
-# prediction = False
-# get_model_arch_comparison(phase, prediction=prediction)
 
 
 def compare_stdev(phase, prediction=False):
@@ -577,6 +562,7 @@ def compare_stdev(phase, prediction=False):
                 df_64 = df[df["experiment_name"] == exp_64_name]
                 df_64_mean = df_64[metric].std()
 
+
                 if not math.isnan(df_8_mean):
                     scheme_letter_dict["letter"].append(letter)
                     scheme_letter_dict["stdev base 8"].append(df_8_mean)
@@ -585,11 +571,19 @@ def compare_stdev(phase, prediction=False):
 
             except Exception as e:
                 print(f"Could not load {phase} {letter} because {e}")
+
        
     final_df = pd.DataFrame(scheme_letter_dict)
     save_path = f"{phase}_analysis/compare_by_stdev.csv"
     final_df.to_csv(save_path)
 
-# phase = "16"
-# prediction = False
-# compare_stdev(phase, prediction=prediction)
+phase = "5"
+total_outputs = 13
+prediction = False
+#get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
+#get_best_weighted_mean_per_scheme(phase, prediction=prediction)
+#get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)
+#get_more_useful_slate_info(phase, prediction=prediction)
+#get_model_arch_comparison(phase, prediction=prediction)
+##compare_stdev(phase, prediction=prediction)
+

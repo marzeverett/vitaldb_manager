@@ -30,9 +30,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -53,9 +53,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -74,9 +74,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -98,6 +98,7 @@ col_names = {
             "f1"
     ],
 }
+
 
 
 

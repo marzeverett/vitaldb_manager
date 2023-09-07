@@ -28,9 +28,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -51,9 +51,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -72,9 +72,9 @@ col_names = {
             "letter",
             "model_group",
             "datastream_scheme",
-            "location_scheme"
-            "l_combo",
+            "location_scheme",
             "ds_combo",
+            "l_combo",
             "input_days",
             "output_days",
             "loss",
@@ -150,7 +150,7 @@ networks_list = [network_1_letters, network_2_letters, network_3_letters, networ
 one_all_letters = ["C", "E", "F"]
 all_all_letters = ["A", "G", "S", "T", "AC", "AD"]
 
-separation_scheme_list = [one_one_letters, one_all_letters, all_one_letters, all_all_letters]
+separation_scheme_list = [one_all_letters, all_all_letters]
 separation_scheme_kinds = ["one_all", "all_all" ]
 
 
@@ -311,7 +311,7 @@ def run_basic_analysis(phases):
         try:
             aggregate_metrics(phase, prediction=prediction)
         except Exception as e:
-              print(f"Couldn't get aggregate metrics for reason {e}")
+             print(f"Couldn't get aggregate metrics for reason {e}")
         #We also want C 
         try:
             minimum_comparison_models(phase, prediction=prediction)
@@ -383,8 +383,8 @@ def adjust_prediction_models(phases):
 
 
 # # # # # #But we need to find a per-separation scheme, per-network ad-hoc analysis 
-# phases = ["16"]
-# run_basic_analysis(phases)
+phases = ["5"]
+run_basic_analysis(phases)
 
 # # # ##### For inspecting individual graphs! 
 # phase = "14"

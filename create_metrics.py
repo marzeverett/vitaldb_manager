@@ -230,8 +230,8 @@ def save_to_main_csv(dataset_descriptor, dataset_result, experiment_descriptor, 
     #print(dict_1)
     dict_2 = dataset_descriptor["dataset_class"].copy()
     dict_2.update(dict_1)
-    if dataset_descriptor["task_type"] == "prediction":
-        dict_2["F1"] = (2*((dict_1['precision']*dict_1["recall"])/(dict_1['precision']+dict_1["recall"])))
+    #if dataset_descriptor["task_type"] == "prediction":
+        #dict_2["F1"] = (2*((dict_1['precision']*dict_1["recall"])/(dict_1['precision']+dict_1["recall"])))
     dict_2["dataset_size"] = len(dataset_result["x"])
     dict_2["training_time"] = experiment_result["training_time"]
     dict_2["experiment_name"] = experiment_descriptor["experiment_name"]

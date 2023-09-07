@@ -169,6 +169,9 @@ def get_ae_paths(dataset_descriptor, using_datastreams):
             #If we are retraining, on an affected letter, and an affected datastream 
             if dataset_descriptor["retrain"]:
                 #Change is here -- keep an eye on. 
+                print(dataset_descriptor["ae_letter"])
+                print(dataset_descriptor["ds_combo"])
+                print(synth_datastream_index)
                 if dataset_descriptor["ae_letter"] in dataset_descriptor["retrain_dict"]["retrained_letters"]:
                     if dataset_descriptor["ds_combo"] != synth_datastream_index:
                         #This uses the old phase 

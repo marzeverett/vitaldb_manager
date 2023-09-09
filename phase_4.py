@@ -7,7 +7,7 @@ import run_experiments
 letters = ['A', 'C', 'F', 'G', 'T', 'AD']
 
 phase_dict = {
-    "phase_name": "4",
+    "phase_name": "9",
     "phase_path_start": "generated_files/",
     "delete_stream": False,
     "task_type": "prediction",
@@ -16,7 +16,7 @@ phase_dict = {
     "output_samples": [10],
     "test": False,
     "retrain": False,
-    "predict_type": ["emop", "dis_mortality_risk", "gluc_risk"],
+    "predict_type": ["gluc_risk"],
     "building_on_phase": "1",
     "retrain_dict": {
         "prev_delete_stream": "clinical",

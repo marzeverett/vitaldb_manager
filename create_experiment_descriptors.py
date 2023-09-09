@@ -8,7 +8,7 @@ import math
 
 loss_function = "mse"
 num_epochs = 150
-num_epochs_predict = 35
+num_epochs_predict = 100
 #CHANGE HERE - DELETE
 #num_epochs_predict = 3
 verbose_bool = False
@@ -180,7 +180,7 @@ def create_predict_lstm_model_object(num_nodes):
                 [
                    {
                         "type": "LSTM",
-                        "num_nodes": round(num_nodes*3),
+                        "num_nodes": round(num_nodes*6),
                         "return_sequences": True,
                     },
                     {
@@ -189,7 +189,7 @@ def create_predict_lstm_model_object(num_nodes):
                     },
                     {
                         "type": "LSTM",
-                        "num_nodes": round(num_nodes*2),
+                        "num_nodes": round(num_nodes*4),
                         "return_sequences": True,
                     },
                     {
@@ -198,7 +198,7 @@ def create_predict_lstm_model_object(num_nodes):
                     },
                     {
                         "type": "LSTM",
-                        "num_nodes": round(num_nodes, 1)
+                        "num_nodes": round(num_nodes, 2)
                     },
                     {
                         "type": "Dropout",

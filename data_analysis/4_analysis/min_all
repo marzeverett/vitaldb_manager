@@ -1,2 +1,0 @@
-model_name,dataset_name,max_f1,input_size,output_size
-4_T_64,4_T_0_0_0_0_0_30_10,0.5243708541889713,14,3

@@ -1,0 +1,4 @@
+letter,input_days,output_days,experiment_name,weighted_metric
+A,30,10,4_A_8,0.479866500256
+A,30,10,4_A_32,0.3592750797700587
+A,30,10,4_A_64,0.35180018579640043

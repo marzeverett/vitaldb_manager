@@ -192,9 +192,10 @@ def load_and_weight(phase, letter, curr_sep_dict, curr_sep_kind, input_var, outp
         metrics_path = f"main_metrics/phase_{phase}/{phase}_{letter}main_metrics.csv"
         if prediction:
             cols = col_names["prediction"]
+            whole_df = pd.read_csv(metrics_path)
         else:
             cols = col_names["lstm"]
-        whole_df = pd.read_csv(metrics_path, names=cols)
+            whole_df = pd.read_csv(metrics_path, names=cols)
 
         #Restrict the df to our particular variation
         weighted_mse = 0
@@ -274,10 +275,6 @@ def get_best_weighted_model_per_organization(phase, total_outputs, prediction=Fa
             get_all_weighted_variations(phase, letter, curr_sep_kind, total_outputs, prediction=prediction)
 
     
-
-
-    
-
 
 def get_best_weighted_model_per_slate_per_scheme(phase, prediction=False):
     #Letters
@@ -492,9 +489,10 @@ def get_model_arch_comparison(phase, prediction=False):
                 df_path = f"main_metrics/phase_{phase}/{phase}_{letter}main_metrics.csv"
                 if prediction:
                     cols = col_names["prediction"]
+                    df = pd.read_csv(df_path)
                 else:
                     cols = col_names["lstm"]
-                df = pd.read_csv(df_path, names=cols)
+                    df = pd.read_csv(df_path, names=cols)
                 exp_8_name = f"{phase}_{letter}_8"
                 exp_32_name = f"{phase}_{letter}_32"
                 exp_64_name = f"{phase}_{letter}_64"
@@ -544,9 +542,10 @@ def compare_stdev(phase, prediction=False):
                 df_path = f"main_metrics/phase_{phase}/{phase}_{letter}main_metrics.csv"
                 if prediction:
                     cols = col_names["prediction"]
+                    df = pd.read_csv(df_path)
                 else:
                     cols = col_names["lstm"]
-                df = pd.read_csv(df_path, names=cols)
+                    df = pd.read_csv(df_path, names=cols)
                 exp_8_name = f"{phase}_{letter}_8"
                 exp_32_name = f"{phase}_{letter}_32"
                 exp_64_name = f"{phase}_{letter}_64"
@@ -560,7 +559,6 @@ def compare_stdev(phase, prediction=False):
 
                 df_64 = df[df["experiment_name"] == exp_64_name]
                 df_64_mean = df_64[metric].std()
-
 
                 if not math.isnan(df_8_mean):
                     scheme_letter_dict["letter"].append(letter)
@@ -576,9 +574,9 @@ def compare_stdev(phase, prediction=False):
     save_path = f"{phase}_analysis/compare_by_stdev.csv"
     final_df.to_csv(save_path)
 
-# phase = "1"
-# total_outputs = 13
-# prediction = False
+# phase = "9"
+# total_outputs = 1
+# prediction = True
 # get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
 # get_best_weighted_mean_per_scheme(phase, prediction=prediction)
 # get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)

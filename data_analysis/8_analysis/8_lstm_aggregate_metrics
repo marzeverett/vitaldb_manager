@@ -1,0 +1,3 @@
+letter,phase_letter,mean_f1,min_f1,max_f1,stdev_f1,mean_mse,min_mse,max_mse,stdev_mse,mean_training_time,mean_num_epochs,location_scheme,datastream_scheme,num_experiments
+G,8_G,0.47029,0.0,0.78167,0.41436,0.01326,0.00637,0.02287,0.00858,87.96079,23.0,0,0,3
+T,8_T,0.89755,0.85374,0.97753,0.06937,0.01128,0.00804,0.01697,0.00494,63.73989,16.66667,0,0,3

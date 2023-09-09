@@ -177,9 +177,10 @@ def read_in_dfs(file_path, phase, ingroup="lstm", prediction=False):
                 sub_dict["phase_letter"] = phase_letter
                 if prediction:
                     cols = col_names["prediction"]
+                    sub_dict["df"] = pd.read_csv(f)
                 else:
                     cols = col_names[ingroup]
-                sub_dict["df"] = pd.read_csv(f, names=cols)
+                    sub_dict["df"] = pd.read_csv(f, names=cols)
                 df_dict[letter] = sub_dict
 
     return df_dict 
@@ -189,9 +190,10 @@ def read_in_df_single(letter, phase, ingroup="lstm", prediction=False):
     file_path = f"main_metrics/phase_{phase}/{phase}_{letter}main_metrics.csv"
     if prediction:
         cols = col_names["prediction"]
+        df = pd.read_csv(file_path)
     else:
         cols = col_names[ingroup]
-    df = pd.read_csv(file_path, names=cols)
+        df = pd.read_csv(file_path, names=cols)
     return df 
 
 #This is disgusting but I'm too lazy to change it
@@ -355,7 +357,10 @@ def read_in_dfs_concat(file_path_start, letters, phases, kind, prediction=False)
         for letter in letters:
             file_path = file_path_start + "phase_"+str(phase)+"/"+str(phase)+"_"+str(letter)+"main_metrics.csv"
             try:
-                sub_df = pd.read_csv(file_path, names=col_names[kind])
+                if kind == "prediction":
+                    sub_df = pd.read_csv(file_path)
+                else:
+                    sub_df = pd.read_csv(file_path, names=col_names[kind])
                 df = df.append(sub_df)
             except Exception as e:
                 pass

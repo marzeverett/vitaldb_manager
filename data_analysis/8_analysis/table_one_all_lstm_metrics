@@ -1,0 +1,7 @@
+Metric
+mean_f1
+min_f1
+max_f1
+stdev_f1
+mean_training_time
+mean_num_epochs

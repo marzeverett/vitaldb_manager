@@ -7,7 +7,7 @@ import run_experiments
 letters = ['G', 'T']
 
 phase_dict = {
-    "phase_name": "8",
+    "phase_name": "9",
     "phase_path_start": "generated_files/",
     "delete_stream": False,
     "task_type": "prediction",
@@ -19,11 +19,11 @@ phase_dict = {
     #MAY CHANGE
     "predict_type": ["emop"],
     #"predict_type": ["dis_mortality_risk"],
-    "building_on_phase": "5",
+    "building_on_phase": "6",
     "retrain_dict": {
-        "sub_ae_phase": "7",
+        "sub_ae_phase": "8",
         "prev_delete_stream": "orch",
-        "retrain_from_phase": "5",
+        "retrain_from_phase": "6",
         "separation_scheme": "ds",
         "retrained_letters": ["E"],
     },

@@ -136,7 +136,6 @@ aggregate_metrics = {
     }
 }
 
-prediction_slates = ["2", "3", "4", "6", "8", "9"]
 
 network_1_letters = ["A", "C"]
 network_2_letters = ["E", "F", "G",]
@@ -378,16 +377,21 @@ def adjust_prediction_models(phases):
                 print(f"No metrics for {phase} {letter}")
 
 
+
+prediction_slates = ["2", "3", "4", "5", "7", "9"]
+
+
+
 # #ADJUSTMENT - DO FIRST 
 # #DONT ACCIDENTALLY DO ON A NON-PREDICTION MODEL!
-# phase = ["4"]
+# phase = ["2"]
 # adjust_prediction_models(phase)
 
 
 
 # # # # # # # #But we need to find a per-separation scheme, per-network ad-hoc analysis 
-phases = ["1"]
-run_basic_analysis(phases)
+# phases = ["2"]
+# run_basic_analysis(phases)
 
 # # # ##### For inspecting individual graphs! 
 # phase = "14"

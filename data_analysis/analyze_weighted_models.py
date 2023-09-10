@@ -299,7 +299,10 @@ def get_best_weighted_model_per_slate_per_scheme(phase, prediction=False):
                 #print(letter)
                 df_path = f"{phase}_analysis/combo_models/{letter}_combos_weighted.csv"
                 df = pd.read_csv(df_path)
-                df_row = df[df[metric] == df[metric].min()]
+                if prediction:
+                    df_row = df[df[metric] == df[metric].max()]
+                else:
+                    df_row = df[df[metric] == df[metric].min()]
                 #print(df_row.empty)
                 if min_row.empty:
                     min_row = df_row
@@ -407,8 +410,8 @@ def get_best_weighted_mean_per_scheme(phase, prediction=False):
 
         final_dict["letters"].append(scheme_letter)
         final_dict["metric"].append(scheme_min)
-        print(scheme_letter)
-        print(scheme_min)
+        #print(scheme_letter)
+        #print(scheme_min)
        
         #print(final_df.head())
     final_df = pd.DataFrame(final_dict)
@@ -459,7 +462,6 @@ def get_more_useful_slate_info(phase, prediction=False):
        
         #print(final_df.head())
 
-    
     save_path = f"{phase}_analysis/slate_metrics.csv"
     final_df.to_csv(save_path)
 
@@ -574,9 +576,9 @@ def compare_stdev(phase, prediction=False):
     save_path = f"{phase}_analysis/compare_by_stdev.csv"
     final_df.to_csv(save_path)
 
-phase = "1"
-total_outputs = 18
-prediction = False
+phase = "2"
+total_outputs = 1
+prediction = True
 get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
 get_best_weighted_mean_per_scheme(phase, prediction=prediction)
 get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)

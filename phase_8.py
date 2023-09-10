@@ -3,11 +3,11 @@ import run_experiments
 
 
 #Actual letters we will use!!! 
-#letters = ['E', 'G', 'S', 'T']
-letters = ['G', 'S', 'T']
+letters = ['E', 'G', 'S', 'T']
+#letters = ['G', 'S', 'T']
 
 phase_dict = {
-    "phase_name": "7",
+    "phase_name": "8",
     "phase_path_start": "generated_files/",
     "delete_stream": False,
     "task_type": "regression",
@@ -17,10 +17,10 @@ phase_dict = {
     "test": False,
     "retrain": True,
     "predict_type": None,
-    "building_on_phase": "5",
+    "building_on_phase": "6",
     "retrain_dict": {
         "prev_delete_stream": "orch",
-        "retrain_from_phase": "5",
+        "retrain_from_phase": "6",
         "separation_scheme": "ds",
         "retrained_letters": ["E"],
     },

@@ -7,7 +7,7 @@ letters = ['A', 'C', 'E', 'F', 'G', 'S', 'T', 'AC', 'AD']
 #letters = ['F', 'G', 'S', 'T', 'AC', 'AD']
 
 phase_dict = {
-    "phase_name": "5",
+    "phase_name": "6",
     "phase_path_start": "generated_files/",
     "delete_stream": ["orch"],
     "task_type": "regression",

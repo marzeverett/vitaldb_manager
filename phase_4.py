@@ -7,7 +7,7 @@ import run_experiments
 letters = ['A', 'C', 'F', 'G', 'T', 'AD']
 
 phase_dict = {
-    "phase_name": "9",
+    "phase_name": "4",
     "phase_path_start": "generated_files/",
     "delete_stream": False,
     "task_type": "prediction",

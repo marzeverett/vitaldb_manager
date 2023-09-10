@@ -1,0 +1,7 @@
+Metric,C,F
+mean_f1,0.23774,0.18154
+min_f1,0.0,0.0
+max_f1,0.90296,0.81188
+stdev_f1,0.38003,0.32349
+mean_training_time,72.25559,62.60375
+mean_num_epochs,19.44444,16.88889

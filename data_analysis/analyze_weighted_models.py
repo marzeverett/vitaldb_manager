@@ -234,7 +234,8 @@ def get_all_weighted_variations(phase, letter, curr_sep_kind, total_outputs, pre
         "experiment_name": [], 
         "weighted_metric": []
     }
-    input_days = [30]
+    #CHANGE IS HERE!! - NOTE: Will change based on hyperparameters
+    input_days = [300]
     output_days = [10]
     scaling_factors = [8, 32, 64]
     
@@ -578,13 +579,16 @@ def compare_stdev(phase, prediction=False):
     save_path = f"{phase}_analysis/compare_by_stdev.csv"
     final_df.to_csv(save_path)
 
-# phase = "9"
-# total_outputs = 1
-# prediction = True
-# get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
-# get_best_weighted_mean_per_scheme(phase, prediction=prediction)
-# get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)
-# get_more_useful_slate_info(phase, prediction=prediction)
-# get_model_arch_comparison(phase, prediction=prediction)
-# compare_stdev(phase, prediction=prediction)
+
+#NOTE: Need to change some hyperparams here 
+
+phase = "10"
+total_outputs = 18
+prediction = False
+get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
+get_best_weighted_mean_per_scheme(phase, prediction=prediction)
+get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)
+get_more_useful_slate_info(phase, prediction=prediction)
+get_model_arch_comparison(phase, prediction=prediction)
+#compare_stdev(phase, prediction=prediction)
 

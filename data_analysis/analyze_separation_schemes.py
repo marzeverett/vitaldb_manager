@@ -205,41 +205,41 @@ def get_metric(df_dict, metric):
     elif metric == "phase_letter":
         return_metric = df_dict["phase_letter"]
     elif metric == "mean_mse":
-        return_metric = round(df["mse"].mean(), 5)
+        return_metric = round(df["mse"].mean(), 10)
     elif metric == "min_mse":
-        return_metric = round(df["mse"].min(), 5)
+        return_metric = round(df["mse"].min(), 10)
     elif metric == "max_mse":
-        return_metric = round(df["mse"].max(), 5)
+        return_metric = round(df["mse"].max(), 10)
     elif metric == "stdev_mse":
-        return_metric = round(df["mse"].std(), 5)
+        return_metric = round(df["mse"].std(), 10)
     elif metric == "mean_f1":
-        return_metric = round(df["f1"].mean(), 5)
+        return_metric = round(df["f1"].mean(), 10)
     elif metric == "min_f1":
-        return_metric = round(df["f1"].min(), 5)
+        return_metric = round(df["f1"].min(), 10)
     elif metric == "max_f1":
-        return_metric = round(df["f1"].max(), 5)
+        return_metric = round(df["f1"].max(), 10)
     elif metric == "stdev_f1":
-        return_metric = round(df["f1"].std(), 5)    
+        return_metric = round(df["f1"].std(), 10)    
     elif metric == "mean_mape":
-        return_metric = round(df["mape"].mean(), 5)
+        return_metric = round(df["mape"].mean(), 10)
     elif metric == "min_mape":
-        return_metric = round(df["mape"].min(), 5)
+        return_metric = round(df["mape"].min(), 10)
     elif metric == "max_mape":
-        return_metric = round(df["mape"].max(), 5)
+        return_metric = round(df["mape"].max(), 10)
     elif metric == "stdev_mape":
-        return_metric = round(df["mse"].std(), 5)
+        return_metric = round(df["mse"].std(), 10)
     elif metric == "mean_mae":
-        return_metric = round(df["mae"].mean(), 5)
+        return_metric = round(df["mae"].mean(), 10)
     elif metric == "min_mae":
-        return_metric = round(df["mae"].min(), 5)
+        return_metric = round(df["mae"].min(), 10)
     elif metric == "max_mae":
-        return_metric = round(df["mae"].max(), 5)
+        return_metric = round(df["mae"].max(), 10)
     elif metric == "stdev_mae":
-        return_metric = round(df["mae"].std(), 5)
+        return_metric = round(df["mae"].std(), 10)
     elif metric == "mean_training_time":
-        return_metric = round(df["training_time"].mean(), 5)
+        return_metric = round(df["training_time"].mean(), 10)
     elif metric == "mean_num_epochs":
-        return_metric = round(df["epochs"].mean(), 5)
+        return_metric = round(df["epochs"].mean(), 10)
     elif metric == "location_scheme":
         return_metric = df["location_scheme"].min()
     elif metric == "datastream_scheme":

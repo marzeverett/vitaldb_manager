@@ -390,8 +390,8 @@ prediction_slates = ["2", "3", "4", "5", "7", "9"]
 
 
 # # # # # # # # #But we need to find a per-separation scheme, per-network ad-hoc analysis 
-# phases = ["9"]
-# run_basic_analysis(phases)
+phases = ["10"]
+run_basic_analysis(phases)
 
 # # # ##### For inspecting individual graphs! 
 # phase = "14"

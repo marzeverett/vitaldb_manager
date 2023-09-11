@@ -1,0 +1,7 @@
+Metric
+mean_mse
+min_mse
+max_mse
+stdev_mse
+mean_training_time
+mean_num_epochs

@@ -1,0 +1,2 @@
+model_name,dataset_name,max_f1,input_size,output_size
+4_AD_8,4_AD_0_0_0_0_0_30_10,0.7127251768299268,13,1

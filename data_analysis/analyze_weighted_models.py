@@ -286,8 +286,6 @@ def get_best_weighted_model_per_slate_per_scheme(phase, prediction=False):
         metric = "weighted_metric"
     else:
         metric = "weighted_metric"
-
-    
     for scheme_letters in separation_schemes:
         scheme_df = pd.DataFrame()
         scheme_min = None
@@ -306,10 +304,16 @@ def get_best_weighted_model_per_slate_per_scheme(phase, prediction=False):
                 #print(df_row.empty)
                 if min_row.empty:
                     min_row = df_row
-                    min_val = df_row[metric].item()
+                    if prediction:
+                        min_val = df_row[metric].max()
+                    else:
+                        min_val = df_row[metric].min()
                     #print(min_val)
                 else:
-                    curr_min_val = df_row[metric].item()
+                    if prediction:
+                        curr_min_val = df_row[metric].max()
+                    else:
+                        curr_min_val = df_row[metric].min()
                     #print(curr_min_val)
                     if prediction:
                         if curr_min_val > min_val:
@@ -320,7 +324,7 @@ def get_best_weighted_model_per_slate_per_scheme(phase, prediction=False):
                             min_val = curr_min_val
                             min_row = df_row
             except Exception as e:
-                print(f"Could not load {phase} {letter} because {e}")
+                print(f"Could not load {phase} {letter} because {e} weighted slate scheme")
         if scheme_df.empty:
             scheme_df = min_row
             scheme_min = min_val
@@ -333,8 +337,6 @@ def get_best_weighted_model_per_slate_per_scheme(phase, prediction=False):
                 if min_val < scheme_min:
                     scheme_df = min_row
                     scheme_min = min_val
-
-
         if final_df.empty:
             final_df = scheme_df
         else:
@@ -394,7 +396,7 @@ def get_best_weighted_mean_per_scheme(phase, prediction=False):
                                 min_val = curr_min_val
                                 min_letter = letter
             except Exception as e:
-                print(f"Could not load {phase} {letter} because {e}")
+                print(f"Could not load {phase} {letter} because {e} weighted mean")
         if scheme_letter == None:
             scheme_letter = min_letter
             scheme_min = min_val
@@ -458,7 +460,7 @@ def get_more_useful_slate_info(phase, prediction=False):
                     else:
                         final_df = pd.concat([final_df, add_rows])  
             except Exception as e:
-                print(f"Could not load {phase} {letter} because {e}")
+                print(f"Could not load {phase} {letter} because {e} slate info")
        
         #print(final_df.head())
 
@@ -516,7 +518,7 @@ def get_model_arch_comparison(phase, prediction=False):
                     scheme_letter_dict["mean base 64"].append(df_64_mean)
 
             except Exception as e:
-                print(f"Could not load {phase} {letter} because {e}")
+                print(f"Could not load {phase} {letter} because {e} model arch")
        
     final_df = pd.DataFrame(scheme_letter_dict)
     save_path = f"{phase}_analysis/compare_by_nodes.csv"
@@ -569,20 +571,20 @@ def compare_stdev(phase, prediction=False):
                     scheme_letter_dict["stdev base 64"].append(df_64_mean)
 
             except Exception as e:
-                print(f"Could not load {phase} {letter} because {e}")
+                print(f"Could not load {phase} {letter} because {e} stdev")
 
        
     final_df = pd.DataFrame(scheme_letter_dict)
     save_path = f"{phase}_analysis/compare_by_stdev.csv"
     final_df.to_csv(save_path)
 
-phase = "2"
-total_outputs = 1
-prediction = True
-get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
-get_best_weighted_mean_per_scheme(phase, prediction=prediction)
-get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)
-get_more_useful_slate_info(phase, prediction=prediction)
-get_model_arch_comparison(phase, prediction=prediction)
-#compare_stdev(phase, prediction=prediction)
+# phase = "9"
+# total_outputs = 1
+# prediction = True
+# get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
+# get_best_weighted_mean_per_scheme(phase, prediction=prediction)
+# get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)
+# get_more_useful_slate_info(phase, prediction=prediction)
+# get_model_arch_comparison(phase, prediction=prediction)
+# compare_stdev(phase, prediction=prediction)
 

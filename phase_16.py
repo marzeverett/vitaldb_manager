@@ -18,10 +18,10 @@ phase_dict = {
     "retrain": False,
     "predict_type": ["emop"],
     #"predict_type": ["dis_mortality_risk"],
-    "building_on_phase": "6",
+    "building_on_phase": "15",
     "retrain_dict": {
         "prev_delete_stream": "clinical",
-        "retrain_from_phase": "6",
+        "retrain_from_phase": "15",
         "separation_scheme": "ds",
         "retrained_letters": ["E"],
     },

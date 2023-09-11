@@ -17,10 +17,10 @@ phase_dict = {
     "test": False,
     "retrain": True,
     "predict_type": None,
-    "building_on_phase": "6",
+    "building_on_phase": "15",
     "retrain_dict": {
         "prev_delete_stream": "orch",
-        "retrain_from_phase": "6",
+        "retrain_from_phase": "15",
         "separation_scheme": "ds",
         "retrained_letters": ["E"],
     },

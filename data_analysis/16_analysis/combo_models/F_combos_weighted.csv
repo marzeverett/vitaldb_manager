@@ -1,0 +1,4 @@
+letter,input_days,output_days,experiment_name,weighted_metric
+F,300,10,16_F_8,0.278911563748703
+F,300,10,16_F_32,0.0
+F,300,10,16_F_64,0.3241106667616614

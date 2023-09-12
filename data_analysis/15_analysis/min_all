@@ -1,0 +1,2 @@
+model_name,dataset_name,min_mse,input_size,output_size
+15_T_64,15_T_0_0_0_0_0_300_10,0.00024967294302769005,10,13

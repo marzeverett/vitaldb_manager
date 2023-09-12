@@ -378,20 +378,20 @@ def adjust_prediction_models(phases):
 
 
 
-prediction_slates = ["2", "3", "4", "5", "7", "9"]
+prediction_slates = ["2", "3", "4", "5", "7", "9", "11", "12", "13", "14", "16", "18"]
 
 
 
 # #ADJUSTMENT - DO FIRST 
 # #DONT ACCIDENTALLY DO ON A NON-PREDICTION MODEL!
-# phase = ["9"]
+# phase = ["18"]
 # adjust_prediction_models(phase)
 
 
 
-# # # # # # # # #But we need to find a per-separation scheme, per-network ad-hoc analysis 
-phases = ["10"]
-run_basic_analysis(phases)
+# # # # # # # # # #But we need to find a per-separation scheme, per-network ad-hoc analysis 
+# phases = ["18"]
+# run_basic_analysis(phases)
 
 # # # ##### For inspecting individual graphs! 
 # phase = "14"

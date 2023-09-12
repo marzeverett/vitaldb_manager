@@ -23,7 +23,7 @@ phase_dict = {
     "retrain_dict": {
         "sub_ae_phase": "17",
         "prev_delete_stream": "orch",
-        "retrain_from_phase": "6",
+        "retrain_from_phase": "15",
         "separation_scheme": "ds",
         "retrained_letters": ["E"],
     },

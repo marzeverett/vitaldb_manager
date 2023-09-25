@@ -5,6 +5,7 @@ import vitaldb
 import pandas as pd 
 import matplotlib.pyplot as plt 
 import numpy as np 
+import math 
 #Need this stuff to so we can preprocess with an AE 
 os.environ['TF_CPP_MIN_LOG_LEVEL']  = '3'
 import tensorflow as tf
@@ -87,6 +88,14 @@ def load_in_datasets(dataset_descriptor):
         #Load it in - the normalized version 
         case = pd.read_csv(f"vital_csvs/{dataset}_normalized.csv")
         #Check that it has the right fields
+        #---------------------------------
+        #CHANGE IS HERE, NOTE! NEED TO UNCOMMENT THIS FOR NORMAL RUN - THIS IS A RESTRICTED RUN! 
+        num_records = len(case.index)
+        get_records = math.ceil(num_records/3)
+        case = case.tail(get_records)
+        case = case.reset_index()
+        #----------------------------------
+
         case_cols = list(case.columns)
         contains_needed_fields = all(feature in case_cols for feature in all_fields)
         if contains_needed_fields:

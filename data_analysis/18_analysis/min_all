@@ -1,0 +1,2 @@
+model_name,dataset_name,max_f1,input_size,output_size
+18_T_32,18_T_0_0_0_0_0_300_10,0.9704141953734348,10,1

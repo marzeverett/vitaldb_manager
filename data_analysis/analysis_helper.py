@@ -305,18 +305,18 @@ def run_basic_analysis(phases):
             prediction = True
         else:
             prediction = False
-        #First, get the aggregate metrics on the whole thing 
+        ##First, get the aggregate metrics on the whole thing 
         try:
             aggregate_metrics(phase, prediction=prediction)
         except Exception as e:
              print(f"Couldn't get aggregate metrics for reason {e}")
-        #We also want C 
+        ##We also want C 
         try:
             minimum_comparison_models(phase, prediction=prediction)
         except Exception as e:
-            print(f"Couldn't get minimum comparison models for reason {e}")
-        #Then get the metrics per separation scheme:
-        #Will need to make sure this saves correctly 
+           print(f"Couldn't get minimum comparison models for reason {e}")
+        ##Then get the metrics per separation scheme:
+        ##Will need to make sure this saves correctly 
         for i in range(0, len(separation_scheme_list)):
             #Get the separation scheme letters 
             sep_scheme = separation_scheme_list[i]
@@ -390,8 +390,8 @@ prediction_slates = ["2", "3", "4", "5", "7", "9", "11", "12", "13", "14", "16",
 
 
 # # # # # # # # # #But we need to find a per-separation scheme, per-network ad-hoc analysis 
-# phases = ["18"]
-# run_basic_analysis(phases)
+phases = ["18"]
+run_basic_analysis(phases)
 
 # # # ##### For inspecting individual graphs! 
 # phase = "14"

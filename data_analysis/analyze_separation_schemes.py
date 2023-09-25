@@ -386,28 +386,29 @@ def get_min_per_organization(file_path_start, phases, kind, prediction=False):
    
     #Separate datastream
     df_3 = read_in_dfs_concat(file_path_start, separate_datastreams_all_locations, phases, kind, prediction=prediction)
-    for ds_index in datastream_combo:
-        dict_index = f"{ds_index}"
-        df_3_correct = df_3[df_3.ds_combo == ds_index]
-        if not df_3_correct.empty:
-                if prediction:
-                    result_3 = df_3_correct[df_3_correct.f1 == df_3_correct.f1.max()]
-                    result_3 = result_3.iloc[0]
-                else:
-                    result_3 = df_3_correct[df_3_correct.mse == df_3_correct.mse.min()]
-                    result_3 = result_3.iloc[0]
-                separate_datastreams_all_locations_dict["ds_index"].append(ds_index)
-                separate_datastreams_all_locations_dict["model_name"].append(result_3["experiment_name"])
-                separate_datastreams_all_locations_dict["dataset_name"].append(result_3["dataset_name"])
-                separate_datastreams_all_locations_dict[metric_label].append(result_3[use_metric])
-                new_dataset_name = result_3["dataset_name"]
-                try:
-                    separate_datastreams_all_locations_dict["input_size"].append(result_3["inputs"].item())
-                    separate_datastreams_all_locations_dict["output_size"].append(result_3["outputs"].item())
-                except Exception as e:
-                    print(f"Error getting min per org (3) due to {e}")
-                    separate_datastreams_all_locations_dict["input_size"].append(-1)
-                    separate_datastreams_all_locations_dict["output_size"].append(-1)
+    if not df_3.empty:
+        for ds_index in datastream_combo:
+            dict_index = f"{ds_index}"
+            df_3_correct = df_3[df_3.ds_combo == ds_index]
+            if not df_3_correct.empty:
+                    if prediction:
+                        result_3 = df_3_correct[df_3_correct.f1 == df_3_correct.f1.max()]
+                        result_3 = result_3.iloc[0]
+                    else:
+                        result_3 = df_3_correct[df_3_correct.mse == df_3_correct.mse.min()]
+                        result_3 = result_3.iloc[0]
+                    separate_datastreams_all_locations_dict["ds_index"].append(ds_index)
+                    separate_datastreams_all_locations_dict["model_name"].append(result_3["experiment_name"])
+                    separate_datastreams_all_locations_dict["dataset_name"].append(result_3["dataset_name"])
+                    separate_datastreams_all_locations_dict[metric_label].append(result_3[use_metric])
+                    new_dataset_name = result_3["dataset_name"]
+                    try:
+                        separate_datastreams_all_locations_dict["input_size"].append(result_3["inputs"].item())
+                        separate_datastreams_all_locations_dict["output_size"].append(result_3["outputs"].item())
+                    except Exception as e:
+                        print(f"Error getting min per org (3) due to {e}")
+                        separate_datastreams_all_locations_dict["input_size"].append(-1)
+                        separate_datastreams_all_locations_dict["output_size"].append(-1)
 
                 
     #All together

@@ -1,0 +1,2 @@
+model_name,dataset_name,min_mse,input_size,output_size
+8_G_32,8_G_0_0_0_0_0_30_10,0.0005224625929258764,14,18

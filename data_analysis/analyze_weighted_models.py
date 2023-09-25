@@ -471,9 +471,6 @@ def get_more_useful_slate_info(phase, prediction=False):
     #For each separation scheme
     
 
-
-
-
 def get_model_arch_comparison(phase, prediction=False):
     #Letters
     separate_datastreams_all_locations = ["C", "F"]
@@ -582,9 +579,9 @@ def compare_stdev(phase, prediction=False):
 
 #NOTE: Need to change some hyperparams here 
 
-# phase = "18"
-# total_outputs = 1
-# prediction = True
+# phase = "17"
+# total_outputs = 18 
+# prediction = False
 # get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
 # get_best_weighted_mean_per_scheme(phase, prediction=prediction)
 # get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)
@@ -592,4 +589,4 @@ def compare_stdev(phase, prediction=False):
 # get_model_arch_comparison(phase, prediction=prediction)
 # #compare_stdev(phase, prediction=prediction)
 
-# #prediction_slates = ["2", "3", "4", "5", "7", "9", "11", "12", "13", "14", "16", "18"]
+# # #prediction_slates = ["2", "3", "4", "5", "7", "9", "11", "12", "13", "14", "16", "18"]

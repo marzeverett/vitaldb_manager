@@ -205,7 +205,8 @@ def per_slate_chart(phase):
     final_df.to_csv(save_path)
 
 
-#prediction_slates = ["2", "3", "4", "5", "7", "9", "11", "12", "13", "14", "16", "18"]
-#phase = '18'
-#per_slate_chart(phase)
+
+prediction_slates = ["2", "3", "4", "5", "7", "9", "11", "12", "13", "14", "16", "18", "20", "21", "22", "23", "25", "26", "27", "28"]
+# phase = '28'
+# per_slate_chart(phase)
 

@@ -579,9 +579,10 @@ def compare_stdev(phase, prediction=False):
 
 #NOTE: Need to change some hyperparams here 
 
-# phase = "17"
-# total_outputs = 18 
-# prediction = False
+# phase = "28"
+# total_outputs = 3
+# #total_outputs = 18 
+# prediction = True
 # get_best_weighted_model_per_organization(phase, total_outputs, prediction=prediction)
 # get_best_weighted_mean_per_scheme(phase, prediction=prediction)
 # get_best_weighted_model_per_slate_per_scheme(phase, prediction=prediction)

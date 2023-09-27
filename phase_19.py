@@ -11,7 +11,8 @@ import run_experiments
 
 #letters = ['F']
 
-letters = ['A', 'C', 'F', 'G', 'AC', 'AD']
+#letters = ['A', 'C', 'F', 'G', 'AC', 'AD']
+letters = ['T']
 
 phase_dict = {
     "phase_name": "19",
